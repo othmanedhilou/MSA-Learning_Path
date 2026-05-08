@@ -1,0 +1,26 @@
+[
+  {"module": "MSA", "notion": "Agents Intelligents", "type": "Vidéo", "url": "https://www.youtube.com/watch?v=JwaL_P7KAt8", "description": "Introduction aux concepts fondamentaux des agents intelligents et autonomes."},
+  {"module": "MSA", "notion": "Communication Inter-agents", "type": "Cours", "url": "http://profs.cmaisonneuve.qc.ca/thirth/inf6013/notes/chapitre8.html", "description": "Détails sur les protocoles de communication comme FIPA-ACL."},
+  {"module": "MSA", "notion": "Framework CrewAI", "type": "Tutoriel", "url": "https://docs.crewai.com/how-to/Creating-an-Agent/", "description": "Guide pratique pour créer son premier agent avec CrewAI."},
+  {"module": "MSA", "notion": "Framework LangGraph", "type": "Documentation", "url": "https://langchain-ai.github.io/langgraph/tutorials/introduction/", "description": "Apprendre à gérer des flux d'agents complexes avec des cycles."},
+
+  {"module": "Data Mining", "notion": "K-Means Clustering", "type": "Vidéo", "url": "https://www.youtube.com/watch?v=4b5d3muPQmA", "description": "Explication visuelle complète de l'algorithme de partitionnement K-Means."},
+  {"module": "Data Mining", "notion": "Arbres de Décision", "type": "Article", "url": "https://le-datascientist.fr/les-arbres-de-decision", "description": "Comprendre comment fonctionnent les algorithmes de classification par arbres."},
+  {"module": "Data Mining", "notion": "Règles d'Association", "type": "Cours", "url": "https://eric.univ-lyon2.fr/~ricco/cours/slides/fouille_regles_association.pdf", "description": "Support de cours complet sur l'algorithme Apriori."},
+  {"module": "Data Mining", "notion": "ACP (Analyse en Composantes Principales)", "type": "Vidéo", "url": "https://www.youtube.com/watch?v=8klqIM9Uvqw", "description": "Simplifier les données complexes avec la réduction de dimension."},
+
+  {"module": "Deep Learning", "notion": "Réseaux de neurones", "type": "Vidéo", "url": "https://www.youtube.com/watch?v=aircAruvnKk", "description": "Le meilleur cours visuel pour comprendre les bases du Deep Learning par 3Blue1Brown."},
+  {"module": "Deep Learning", "notion": "Réseaux Convolutifs (CNN)", "type": "Article", "url": "https://datascientest.com/convolutional-neural-network", "description": "Guide complet sur l'architecture des CNN pour la vision par ordinateur."},
+  {"module": "Deep Learning", "notion": "Backpropagation", "type": "Vidéo", "url": "https://www.youtube.com/watch?v=Ilg3gGewQ5U", "description": "Comprendre mathématiquement comment les réseaux de neurones apprennent."},
+  {"module": "Deep Learning", "notion": "Transformers", "type": "Tutoriel", "url": "https://jalammar.github.io/illustrated-transformer/", "description": "L'explication visuelle la plus célèbre sur l'architecture Transformer."},
+
+  {"module": "Data Warehouse", "notion": "Processus ETL", "type": "Vidéo", "url": "https://www.youtube.com/watch?v=tI9N_9viX8M", "description": "Comprendre l'extraction, la transformation et le chargement des données."},
+  {"module": "Data Warehouse", "notion": "Schéma en Étoile", "type": "Article", "url": "https://blog.dev-clic.fr/la-modelisation-dimensionnelle-le-schema-en-etoile/", "description": "Différences entre schéma en étoile et schéma en flocon."},
+  {"module": "Data Warehouse", "notion": "OLAP vs OLTP", "type": "Cours", "url": "https://www.oracle.com/fr/database/what-is-olap/", "description": "Définition officielle des systèmes transactionnels vs décisionnels."},
+  {"module": "Data Warehouse", "notion": "Cloud Data Warehouse", "type": "Article", "url": "https://www.snowflake.com/fr/trending/data-warehouse-cloud/", "description": "Introduction aux entrepôts de données modernes dans le cloud."},
+
+  {"module": "Big Data", "notion": "Hadoop HDFS", "type": "Vidéo", "url": "https://www.youtube.com/watch?v=fpxm8sI0IqA", "description": "Comprendre le système de fichiers distribué de Hadoop."},
+  {"module": "Big Data", "notion": "Apache Spark", "type": "Tutoriel", "url": "https://spark.apache.org/docs/latest/quick-start.html", "description": "Guide officiel de démarrage rapide pour Apache Spark."},
+  {"module": "Big Data", "notion": "Bases NoSQL", "type": "Vidéo", "url": "https://www.youtube.com/watch?v=uD3p_rZ-S30", "description": "Comparaison entre SQL et NoSQL (MongoDB, Cassandra, etc.)."},
+  {"module": "Big Data", "notion": "MapReduce", "type": "Article", "url": "https://www.guru99.com/fr/introduction-to-mapreduce.html", "description": "Explication simplifiée du paradigme de calcul distribué."}
+]
