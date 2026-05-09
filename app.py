@@ -1,6 +1,8 @@
 import streamlit as st
 from agents_dodo import AgentPedagogue, AgentTracker, AgentCoach
 import time
+import json
+import os
 
 # --- CONFIGURATION DE LA PAGE ---
 st.set_page_config(page_title="AI Learning Architect", layout="wide", page_icon="🎓")
@@ -37,13 +39,12 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # --- INITIALISATION DES AGENTS ---
-# On utilise try/except pour éviter que l'app plante si les fichiers sont mal placés
 try:
     pedagogue = AgentPedagogue()
     tracker = AgentTracker()
     coach = AgentCoach()
 except Exception as e:
-    st.error(f"Erreur d'initialisation : Vérifie que ressources.json est bien dans le dossier data. ({e})")
+    st.error(f"Erreur d'initialisation : {e}")
     st.stop()
 
 # --- BARRE LATÉRALE (SIDEBAR) ---
@@ -78,24 +79,55 @@ with s3:
 
 st.write(" ")
 
-# Zone de contenu
+# --- ZONE D'INTÉGRATION ---
 col_main, col_side = st.columns([2, 1])
 
 with col_main:
-    # Simulation de la lacune identifiée par othmane
-    lacunes = {
-        "MSA": "Agents Intelligents",
-        "Data Mining": "K-Means Clustering",
-        "Deep Learning": "Réseaux Convolutifs (CNN)",
-        "Data Warehouse": "Processus ETL",
-        "Big Data": "Apache Spark"
-    }
-    notion_cible = lacunes.get(module_select)
+    # 1. AFFICHAGE DU GRAPHE
+    if os.path.exists("data/graphe_prerequis.png"):
+        with st.expander("🗺️ Voir ma carte de progression"):
+            st.image("data/graphe_prerequis.png", use_container_width=True)
 
-    st.markdown(f"#### 🎯 Ta cible du jour : `{notion_cible}`")
-    
-    st.subheader("📖 Ressources recommandées")
-    ressources = pedagogue.get_ressources(notion_cible)
+    # 2. LE DIAGNOSTIC (Adapté à la structure d'Outhman)
+    st.subheader("📝 Diagnostic de tes connaissances")
+    notion_detectee = "Concepts Généraux"
+
+    if os.path.exists("data/questions.json"):
+        with open("data/questions.json", "r", encoding="utf-8") as f:
+            questions_data = json.load(f)
+        
+        # On cherche le bloc correspondant au module (ex: "MSA")
+        module_data = [m for m in questions_data if m.get('module') == module_select]
+        
+        if module_data:
+            notion_item = module_data[0]
+            notion_detectee = notion_item.get('notion', "Concepts Généraux")
+            liste_questions = notion_item.get('questions', [])
+            
+            if liste_questions:
+                q = liste_questions[0] # On prend la 1ère question du bloc
+                txt_q = q.get('question')
+                options = q.get('options', [])
+                reponse_idx = q.get('reponse') # C'est un chiffre (0, 1, 2...)
+                
+                st.info(f"**Question sur {notion_detectee} :** {txt_q}")
+                choix = st.radio("Ta réponse :", options, key="quiz_radio")
+                
+                if st.button("Vérifier ma réponse"):
+                    # On compare le texte choisi avec le texte à l'index de la réponse
+                    if choix == options[reponse_idx]:
+                        st.success("✅ Bravo ! Tu maîtrises cette notion.")
+                    else:
+                        st.error(f"❌ Mauvaise réponse. La bonne était : {options[reponse_idx]}")
+                        st.warning(f"L'Agent Diagnostique te conseille de réviser : **{notion_detectee}**")
+        else:
+            st.write("Chargement des questions...")
+
+    st.divider()
+
+    # 3. LES RESSOURCES (Ton travail)
+    st.subheader(f"📖 Ressources pour maîtriser : {notion_detectee}")
+    ressources = pedagogue.get_ressources(notion_detectee)
     
     if ressources:
         for res in ressources:
@@ -105,29 +137,26 @@ with col_main:
                 <p style="color:gray;">{res['description']}</p>
             </div>
             """, unsafe_allow_html=True)
-            
-            # Bouton pour ouvrir la ressource
             st.link_button(f"🚀 Ouvrir la ressource ({res['type']})", res['url'])
     else:
-        st.info("Aucune ressource trouvée. Vérifie le fichier ressources.json.")
+        st.info("Sélectionne un module pour voir les ressources.")
 
 with col_side:
+    # 4. AUTO-ÉVALUATION (Tracker & Coach)
     st.markdown('<div style="background-color:#fff; padding:20px; border-radius:15px; border:1px solid #eee;">', unsafe_allow_html=True)
     st.subheader("📊 Auto-Évaluation")
-    st.write("As-tu bien maîtrisé cette notion ?")
-    score = st.select_slider("Note de compréhension", options=[0, 1, 2, 3, 4, 5], value=3)
+    score = st.select_slider("Maîtrise (0-5)", options=[0, 1, 2, 3, 4, 5], value=3)
     
     if st.button("✅ Valider ma session"):
-        with st.spinner('Enregistrement en cours...'):
+        with st.spinner('Synchronisation...'):
             time.sleep(1) 
-            tracker.sauver_progres(nom, notion_cible, score)
+            tracker.sauver_progres(nom, notion_detectee, score)
             prochaine = coach.calculer_revision(score)
-            
             st.balloons() 
-            st.success(f"Bravo {nom} !")
-            st.info(f"📅 Prochaine révision : **{prochaine}**")
+            st.success(f"Enregistré !")
+            st.info(f"📅 Révision : **{prochaine}**")
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Footer
 st.divider()
-st.caption("Projet 4AISDR - Module SMA Agentic AI - Équipe othmane DODO Mohamed Yassir")
+st.caption("Équipe : Outhman, DODO, Mohamed Yassir")

@@ -28,5 +28,20 @@
         "etudiant": "Test",
         "notion": "Notion Test",
         "score": 4
+    },
+    {
+        "etudiant": "Moh",
+        "notion": "Agents Intelligents",
+        "score": 3
+    },
+    {
+        "etudiant": "Moh",
+        "notion": "K-Means Clustering",
+        "score": 3
+    },
+    {
+        "etudiant": "Moussa",
+        "notion": "Hadoop HDFS",
+        "score": 5
     }
 ]
