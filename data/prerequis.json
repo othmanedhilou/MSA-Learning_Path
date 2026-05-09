@@ -1,0 +1,144 @@
+{
+  "modules": {
+    "MSA": {
+      "notions": [
+        {
+          "id": "agents_intelligents",
+          "label": "Agents Intelligents",
+          "niveau": 1,
+          "prerequis": []
+        },
+        {
+          "id": "communication_inter_agents",
+          "label": "Communication Inter-agents",
+          "niveau": 2,
+          "prerequis": ["agents_intelligents"]
+        },
+        {
+          "id": "framework_crewai",
+          "label": "Framework CrewAI",
+          "niveau": 3,
+          "prerequis": ["communication_inter_agents"]
+        },
+        {
+          "id": "framework_langgraph",
+          "label": "Framework LangGraph",
+          "niveau": 4,
+          "prerequis": ["framework_crewai"]
+        }
+      ]
+    },
+    "Data Mining": {
+      "notions": [
+        {
+          "id": "kmeans",
+          "label": "K-Means Clustering",
+          "niveau": 1,
+          "prerequis": []
+        },
+        {
+          "id": "arbres_decision",
+          "label": "Arbres de Décision",
+          "niveau": 2,
+          "prerequis": ["kmeans"]
+        },
+        {
+          "id": "regles_association",
+          "label": "Règles d'Association",
+          "niveau": 3,
+          "prerequis": ["arbres_decision"]
+        },
+        {
+          "id": "acp",
+          "label": "ACP (Analyse en Composantes Principales)",
+          "niveau": 4,
+          "prerequis": ["regles_association"]
+        }
+      ]
+    },
+    "Deep Learning": {
+      "notions": [
+        {
+          "id": "reseaux_neurones",
+          "label": "Réseaux de neurones",
+          "niveau": 1,
+          "prerequis": []
+        },
+        {
+          "id": "backpropagation",
+          "label": "Backpropagation",
+          "niveau": 2,
+          "prerequis": ["reseaux_neurones"]
+        },
+        {
+          "id": "cnn",
+          "label": "Réseaux Convolutifs (CNN)",
+          "niveau": 3,
+          "prerequis": ["backpropagation"]
+        },
+        {
+          "id": "transformers",
+          "label": "Transformers",
+          "niveau": 4,
+          "prerequis": ["cnn"]
+        }
+      ]
+    },
+    "Data Warehouse": {
+      "notions": [
+        {
+          "id": "olap_oltp",
+          "label": "OLAP vs OLTP",
+          "niveau": 1,
+          "prerequis": []
+        },
+        {
+          "id": "etl",
+          "label": "Processus ETL",
+          "niveau": 2,
+          "prerequis": ["olap_oltp"]
+        },
+        {
+          "id": "schema_etoile",
+          "label": "Schéma en Étoile",
+          "niveau": 3,
+          "prerequis": ["etl"]
+        },
+        {
+          "id": "cloud_dw",
+          "label": "Cloud Data Warehouse",
+          "niveau": 4,
+          "prerequis": ["schema_etoile"]
+        }
+      ]
+    },
+    "Big Data": {
+      "notions": [
+        {
+          "id": "hadoop_hdfs",
+          "label": "Hadoop HDFS",
+          "niveau": 1,
+          "prerequis": []
+        },
+        {
+          "id": "mapreduce",
+          "label": "MapReduce",
+          "niveau": 2,
+          "prerequis": ["hadoop_hdfs"]
+        },
+        {
+          "id": "apache_spark",
+          "label": "Apache Spark",
+          "niveau": 3,
+          "prerequis": ["mapreduce"]
+        },
+        {
+          "id": "nosql",
+          "label": "Bases NoSQL",
+          "niveau": 4,
+          "prerequis": ["apache_spark"]
+        }
+      ]
+    }
+  }
+}

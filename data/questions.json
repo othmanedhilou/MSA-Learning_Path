@@ -1,0 +1,482 @@
+[
+  {
+    "module": "MSA",
+    "notion": "Agents Intelligents",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Qu'est-ce qu'un agent intelligent ?",
+        "options": ["Un programme qui perçoit son environnement et agit dessus", "Un simple script Python", "Une base de données", "Un serveur web"],
+        "reponse": 0
+      },
+      {
+        "niveau": "moyen",
+        "question": "Quelle propriété distingue un agent intelligent d'un programme classique ?",
+        "options": ["Il utilise SQL", "Il est autonome et réactif à son environnement", "Il nécessite une connexion internet", "Il est écrit en Java"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Parmi ces architectures, laquelle est typique d'un agent délibératif ?",
+        "options": ["Reactive Agent", "BDI (Belief-Desire-Intention)", "Rule-based system", "Neural Network seul"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "MSA",
+    "notion": "Communication Inter-agents",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Quel protocole est utilisé pour la communication entre agents dans les SMA ?",
+        "options": ["HTTP", "FIPA-ACL", "FTP", "SMTP"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Qu'est-ce qu'un performatif dans un message ACL ?",
+        "options": ["Le contenu du message", "L'intention de la communication (inform, request...)", "L'identité de l'agent", "Le protocole réseau utilisé"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Dans un protocole de négociation Contract-Net, quel est le rôle du 'manager' ?",
+        "options": ["Exécuter les tâches", "Diffuser les appels d'offres et sélectionner les meilleurs", "Gérer la base de données", "Surveiller le réseau"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "MSA",
+    "notion": "Framework CrewAI",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "CrewAI est principalement utilisé pour :",
+        "options": ["Créer des bases de données", "Orchestrer des équipes d'agents IA collaboratifs", "Faire du web scraping", "Gérer des serveurs"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Dans CrewAI, qu'est-ce qu'un 'Task' ?",
+        "options": ["Un agent autonome", "Une mission assignée à un agent avec un objectif précis", "Un modèle de langage", "Un fichier de configuration"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Quelle est la différence entre process='sequential' et process='hierarchical' dans CrewAI ?",
+        "options": ["Il n'y a pas de différence", "Sequential exécute les tâches en ordre, hierarchical utilise un manager pour déléguer", "Hierarchical est plus rapide", "Sequential utilise plus de mémoire"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "MSA",
+    "notion": "Framework LangGraph",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "LangGraph est une extension de :",
+        "options": ["TensorFlow", "LangChain", "PyTorch", "Scikit-learn"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Quelle structure de données LangGraph utilise pour gérer les flux d'agents ?",
+        "options": ["Une liste chaînée", "Un graphe orienté avec états et transitions", "Une pile (stack)", "Un dictionnaire simple"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Quelle fonctionnalité de LangGraph permet de gérer des boucles dans un workflow d'agents ?",
+        "options": ["Les nœuds conditionnels (conditional edges)", "Les listes Python", "Les classes abstraites", "Les décorateurs"],
+        "reponse": 0
+      }
+    ]
+  },
+  {
+    "module": "Data Mining",
+    "notion": "K-Means Clustering",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Que fait l'algorithme K-Means ?",
+        "options": ["Classe des données en K groupes similaires", "Prédit des valeurs numériques", "Détecte des anomalies", "Compresse des images"],
+        "reponse": 0
+      },
+      {
+        "niveau": "moyen",
+        "question": "Comment K-Means choisit-il les centres de clusters à chaque itération ?",
+        "options": ["Aléatoirement à chaque fois", "En calculant la moyenne des points de chaque cluster", "En prenant le point le plus éloigné", "En utilisant la médiane"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Quel critère utilise-t-on pour choisir la valeur optimale de K (méthode du coude) ?",
+        "options": ["Maximiser l'inertie inter-clusters", "Minimiser l'inertie intra-clusters en cherchant le point d'inflexion", "Maximiser le nombre de points par cluster", "Minimiser le nombre d'itérations"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Data Mining",
+    "notion": "Arbres de Décision",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Un arbre de décision est un modèle de :",
+        "options": ["Clustering", "Classification et régression", "Réduction de dimension", "Association"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Qu'est-ce que le critère de Gini dans un arbre de décision ?",
+        "options": ["Une mesure de la profondeur de l'arbre", "Une mesure de l'impureté d'un nœud", "Le nombre de feuilles", "La vitesse d'apprentissage"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Comment éviter le surapprentissage (overfitting) dans un arbre de décision ?",
+        "options": ["Augmenter la profondeur maximale", "Appliquer l'élagage (pruning) et limiter la profondeur", "Ajouter plus de données d'entraînement seulement", "Utiliser plus de features"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Data Mining",
+    "notion": "Règles d'Association",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Les règles d'association sont souvent utilisées pour :",
+        "options": ["La reconnaissance d'images", "L'analyse du panier d'achat (market basket analysis)", "La prédiction météo", "Le traitement du langage naturel"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Que mesure la 'confiance' d'une règle A → B ?",
+        "options": ["La fréquence de A dans la base", "La probabilité que B soit acheté sachant que A l'est", "Le nombre total de transactions", "La corrélation entre A et B"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Quelle est la différence entre le support et le lift dans les règles d'association ?",
+        "options": ["Ils sont identiques", "Le support mesure la fréquence, le lift mesure l'intérêt de la règle par rapport au hasard", "Le lift est toujours supérieur au support", "Le support mesure la confiance"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Data Mining",
+    "notion": "ACP (Analyse en Composantes Principales)",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "L'ACP est utilisée principalement pour :",
+        "options": ["Augmenter le nombre de variables", "Réduire la dimensionnalité des données", "Créer de nouvelles données", "Supprimer les doublons"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Que représentent les composantes principales dans l'ACP ?",
+        "options": ["Les variables originales triées", "Les directions de variance maximale dans les données", "Les moyennes des variables", "Les valeurs aberrantes"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Comment détermine-t-on le nombre de composantes principales à conserver ?",
+        "options": ["Toujours garder 2 composantes", "En analysant la variance expliquée cumulée (ex: seuil 95%)", "En gardant autant que le nombre de variables", "Au hasard"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Deep Learning",
+    "notion": "Réseaux de neurones",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Un neurone artificiel est inspiré de :",
+        "options": ["Un transistor électronique", "Un neurone biologique du cerveau humain", "Une cellule solaire", "Un capteur physique"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Quel est le rôle de la fonction d'activation dans un réseau de neurones ?",
+        "options": ["Initialiser les poids", "Introduire de la non-linéarité pour apprendre des patterns complexes", "Normaliser les données d'entrée", "Calculer la perte"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Quelle est la différence entre un réseau dense (fully connected) et un réseau convolutif ?",
+        "options": ["Il n'y a pas de différence", "Le réseau dense connecte tous les neurones, le CNN partage les poids via des filtres locaux", "Le CNN a plus de couches", "Le réseau dense est plus rapide"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Deep Learning",
+    "notion": "Backpropagation",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "La backpropagation sert à :",
+        "options": ["Initialiser le réseau", "Calculer les gradients pour mettre à jour les poids", "Normaliser les données", "Visualiser les résultats"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Quelle règle mathématique est au cœur de la backpropagation ?",
+        "options": ["La règle de Simpson", "La règle de la chaîne (chain rule) des dérivées", "Le théorème de Bayes", "La loi des grands nombres"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Qu'est-ce que le problème du gradient qui s'évanouit (vanishing gradient) ?",
+        "options": ["Les gradients augmentent exponentiellement dans les premières couches", "Les gradients deviennent très proches de zéro dans les premières couches, bloquant l'apprentissage", "Le réseau apprend trop vite", "Les poids restent identiques"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Deep Learning",
+    "notion": "Réseaux Convolutifs (CNN)",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Les CNN sont particulièrement efficaces pour :",
+        "options": ["Le traitement de séries temporelles", "La reconnaissance d'images et la vision par ordinateur", "La génération de texte", "Le clustering de données"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Que fait une couche de pooling dans un CNN ?",
+        "options": ["Ajoute de nouveaux pixels", "Réduit la dimension spatiale tout en conservant les features importantes", "Normalise les pixels", "Applique une rotation à l'image"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Qu'est-ce que le transfer learning dans le contexte des CNN ?",
+        "options": ["Entraîner un réseau from scratch", "Réutiliser un modèle pré-entraîné (ex: VGG, ResNet) et l'adapter à une nouvelle tâche", "Transférer des données entre GPU", "Copier les poids d'un réseau à un autre aléatoirement"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Deep Learning",
+    "notion": "Transformers",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Les Transformers ont révolutionné principalement quel domaine ?",
+        "options": ["La vision par ordinateur uniquement", "Le traitement du langage naturel (NLP)", "Le clustering", "La robotique"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Quel mécanisme est au cœur de l'architecture Transformer ?",
+        "options": ["La convolution", "L'attention (Self-Attention)", "La récurrence (LSTM)", "Le pooling"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Que représente la formule Attention(Q,K,V) = softmax(QK^T / √dk) * V ?",
+        "options": ["Un calcul de distance euclidienne", "Un mécanisme qui pondère les valeurs V selon la similarité entre requêtes Q et clés K", "Une normalisation des données", "Un calcul de gradient"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Data Warehouse",
+    "notion": "OLAP vs OLTP",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "OLTP signifie :",
+        "options": ["Online Learning Training Process", "Online Transaction Processing", "Offline Text Processing", "Open Language Training Protocol"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Quelle est la principale différence entre OLAP et OLTP ?",
+        "options": ["OLTP est pour l'analyse décisionnelle, OLAP pour les transactions", "OLAP est pour l'analyse décisionnelle, OLTP pour les transactions quotidiennes", "Ils sont identiques", "OLAP est plus rapide pour les insertions"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Pourquoi un Data Warehouse utilise OLAP et non OLTP ?",
+        "options": ["OLAP supporte mieux les lectures massives et les agrégations sur de grands volumes historiques", "OLAP est plus récent", "OLTP ne fonctionne pas avec SQL", "OLAP est moins cher"],
+        "reponse": 0
+      }
+    ]
+  },
+  {
+    "module": "Data Warehouse",
+    "notion": "Processus ETL",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "ETL signifie :",
+        "options": ["Extract, Train, Load", "Extract, Transform, Load", "Encode, Transfer, Link", "Export, Test, Launch"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Quelle étape du processus ETL nettoie et reformate les données ?",
+        "options": ["Extract", "Load", "Transform", "Index"],
+        "reponse": 2
+      },
+      {
+        "niveau": "difficile",
+        "question": "Quelle est la différence entre ETL et ELT ?",
+        "options": ["Il n'y a pas de différence", "ETL transforme avant de charger, ELT charge d'abord puis transforme dans le DW (adapté au cloud)", "ELT est obsolète", "ETL est uniquement pour les bases NoSQL"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Data Warehouse",
+    "notion": "Schéma en Étoile",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Un schéma en étoile est composé de :",
+        "options": ["Plusieurs tables de faits sans dimensions", "Une table de faits centrale entourée de tables de dimensions", "Uniquement des tables de dimensions", "Des graphes de nœuds"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Quelle est la différence entre schéma en étoile et schéma en flocon ?",
+        "options": ["Le schéma en flocon normalise les tables de dimensions, l'étoile non", "L'étoile a plus de tables", "Le flocon est plus simple", "Ils sont identiques"],
+        "reponse": 0
+      },
+      {
+        "niveau": "difficile",
+        "question": "Pourquoi préfère-t-on le schéma en étoile pour les requêtes OLAP ?",
+        "options": ["Il occupe moins d'espace disque", "Il minimise les jointures et optimise les performances des requêtes analytiques", "Il est plus facile à normaliser", "Il supporte mieux les transactions"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Data Warehouse",
+    "notion": "Cloud Data Warehouse",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Un exemple de Cloud Data Warehouse est :",
+        "options": ["MySQL", "Snowflake", "SQLite", "MongoDB"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Quel avantage principal offre un Cloud DW par rapport à un DW on-premise ?",
+        "options": ["Il est moins cher dans tous les cas", "L'élasticité : scalabilité à la demande sans infrastructure physique", "Il est plus sécurisé", "Il ne nécessite pas de SQL"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Qu'est-ce que la séparation stockage/calcul (storage-compute separation) dans Snowflake ?",
+        "options": ["Stocker les données localement et calculer dans le cloud", "Permettre de scaler indépendamment le stockage et la puissance de calcul pour optimiser les coûts", "Séparer les bases OLAP et OLTP", "Utiliser deux régions géographiques différentes"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Big Data",
+    "notion": "Hadoop HDFS",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "HDFS signifie :",
+        "options": ["High Definition File System", "Hadoop Distributed File System", "Hybrid Data File Storage", "Hierarchical Data Format System"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Comment HDFS assure-t-il la tolérance aux pannes ?",
+        "options": ["En utilisant des disques SSD", "En répliquant chaque bloc de données sur plusieurs nœuds (par défaut 3)", "En compressant les données", "En utilisant le chiffrement"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Quel est le rôle du NameNode dans HDFS ?",
+        "options": ["Stocker les données réelles", "Gérer les métadonnées du système de fichiers (localisation des blocs)", "Exécuter les calculs MapReduce", "Assurer la sécurité du cluster"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Big Data",
+    "notion": "MapReduce",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "MapReduce est un paradigme de :",
+        "options": ["Stockage de données", "Traitement distribué de grandes quantités de données", "Visualisation de données", "Compression de fichiers"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Dans MapReduce, que fait la phase 'Reduce' ?",
+        "options": ["Divise les données en blocs", "Agrège et combine les résultats intermédiaires produits par Map", "Lit les données depuis HDFS", "Trie les données d'entrée"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Pourquoi MapReduce est-il considéré lent par rapport à Apache Spark ?",
+        "options": ["MapReduce utilise plus de RAM", "MapReduce écrit les résultats intermédiaires sur disque entre chaque phase, Spark garde tout en mémoire", "Spark a plus de nœuds", "MapReduce ne supporte pas Java"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Big Data",
+    "notion": "Apache Spark",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "Apache Spark est principalement connu pour :",
+        "options": ["Stocker des fichiers", "Traiter de grandes données en mémoire très rapidement", "Créer des interfaces web", "Gérer des bases de données relationnelles"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Qu'est-ce qu'un RDD dans Apache Spark ?",
+        "options": ["Un fichier de configuration", "Resilient Distributed Dataset : une collection distribuée et tolérante aux pannes", "Un type de base de données", "Un algorithme de machine learning"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Quelle est la différence entre une transformation et une action dans Spark ?",
+        "options": ["Il n'y a pas de différence", "Les transformations sont paresseuses (lazy), les actions déclenchent réellement le calcul", "Les actions sont plus lentes", "Les transformations modifient les données originales"],
+        "reponse": 1
+      }
+    ]
+  },
+  {
+    "module": "Big Data",
+    "notion": "Bases NoSQL",
+    "questions": [
+      {
+        "niveau": "facile",
+        "question": "NoSQL signifie :",
+        "options": ["No Structured Query Language", "Not Only SQL", "New Object SQL", "Non-relational Open SQL"],
+        "reponse": 1
+      },
+      {
+        "niveau": "moyen",
+        "question": "Quel type de base NoSQL est MongoDB ?",
+        "options": ["Base orientée colonnes", "Base orientée documents (JSON)", "Base orientée graphes", "Base clé-valeur"],
+        "reponse": 1
+      },
+      {
+        "niveau": "difficile",
+        "question": "Qu'est-ce que le théorème CAP dans les systèmes distribués NoSQL ?",
+        "options": ["Un système ne peut garantir que 2 des 3 propriétés : Cohérence, Disponibilité, Tolérance aux partitions", "Un algorithme de compression", "Un protocole de sécurité", "Une méthode d'indexation"],
+        "reponse": 0
+      }
+    ]
+  }
+]

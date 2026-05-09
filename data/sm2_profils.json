@@ -1,0 +1,32 @@
+{
+    "othmane::Agents Intelligents": {
+        "intervalle": 6,
+        "repetitions": 2,
+        "facilite": 2.6,
+        "prochaine_revision": "2026-05-15"
+    },
+    "othmane::K-Means Clustering": {
+        "intervalle": 1,
+        "repetitions": 0,
+        "facilite": 2.18,
+        "prochaine_revision": "2026-05-10"
+    },
+    "othmane::Transformers": {
+        "intervalle": 1,
+        "repetitions": 1,
+        "facilite": 2.6,
+        "prochaine_revision": "2026-05-10"
+    },
+    "TestUser::Agents Intelligents": {
+        "intervalle": 1,
+        "repetitions": 1,
+        "facilite": 2.6,
+        "prochaine_revision": "2026-05-10"
+    },
+    "Test::Notion": {
+        "intervalle": 1,
+        "repetitions": 1,
+        "facilite": 2.5,
+        "prochaine_revision": "2026-05-10"
+    }
+}

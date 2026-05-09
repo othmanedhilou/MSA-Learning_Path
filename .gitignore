@@ -1,0 +1,28 @@
+# Documentation (à garder local)
+DECOUVRE_MOI_DABORD.md
+INDEX.md
+RAPPORT_COMPLET.md
+GUIDE_PRATIQUE.md
+GUIDE_VISUEL.md
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/

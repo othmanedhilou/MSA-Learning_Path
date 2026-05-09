@@ -82,7 +82,7 @@ st.write(" ")
 col_main, col_side = st.columns([2, 1])
 
 with col_main:
-    # Simulation de la lacune identifiée par Outhman
+    # Simulation de la lacune identifiée par othmane
     lacunes = {
         "MSA": "Agents Intelligents",
         "Data Mining": "K-Means Clustering",
@@ -130,4 +130,4 @@ with col_side:
 
 # Footer
 st.divider()
-st.caption("Projet 4AISDR - Module SMA Agentic AI - Équipe Outhman DODO Mohamed Yassir")
+st.caption("Projet 4AISDR - Module SMA Agentic AI - Équipe othmane DODO Mohamed Yassir")
