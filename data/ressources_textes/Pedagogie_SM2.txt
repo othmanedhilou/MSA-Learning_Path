@@ -1,0 +1,4 @@
+NOTION: Algorithme SM-2 (Spaced Repetition). 
+    L'algorithme de SuperMemo-2 est une méthode de répétition espacée. 
+    Il calcule l'intervalle idéal pour réviser une information en fonction de sa difficulté perçue et de la performance passée de l'apprenant. 
+    Le but est de présenter l'information juste avant que l'apprenant ne l'oublie pour renforcer la mémoire à long terme.

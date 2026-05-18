@@ -1,0 +1,4 @@
+NOTION: Apache Spark et Hadoop HDFS. 
+    Hadoop HDFS est un système de fichiers distribué conçu pour stocker de très gros volumes de données sur des clusters de serveurs. 
+    Apache Spark est un moteur de traitement de données ultra-rapide qui travaille principalement en mémoire vive (RAM), 
+    ce qui le rend jusqu'à 100 fois plus rapide que MapReduce pour certaines tâches de Big Data et de Machine Learning.

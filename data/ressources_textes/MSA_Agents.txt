@@ -1,0 +1,4 @@
+NOTION: Agents Intelligents. 
+    Un agent intelligent est une entité autonome qui perçoit son environnement à l'aide de capteurs et agit sur celui-ci via des actionneurs. 
+    Il possède quatre propriétés clés : l'autonomie, la réactivité, la proactivité et la capacité sociale. 
+    Les types d'agents incluent les agents de réflexion simple, les agents basés sur des modèles, les agents basés sur des objectifs et les agents basés sur l'utilité.

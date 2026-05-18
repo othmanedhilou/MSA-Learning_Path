@@ -1,0 +1,4 @@
+NOTION: Framework CrewAI et LangGraph. 
+    CrewAI est conçu pour orchestrer des agents de manière collaborative en définissant des rôles (Processus séquentiel ou hiérarchique). 
+    LangGraph est une extension de LangChain permettant de créer des agents cycliques (avec boucles de rétroaction), 
+    ce qui est crucial pour les systèmes qui doivent s'auto-corriger ou raisonner en plusieurs étapes.

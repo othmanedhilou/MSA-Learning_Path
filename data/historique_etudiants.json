@@ -43,5 +43,10 @@
         "etudiant": "Moussa",
         "notion": "Hadoop HDFS",
         "score": 5
+    },
+    {
+        "etudiant": "San",
+        "notion": "K-Means Clustering",
+        "score": 3
     }
 ]

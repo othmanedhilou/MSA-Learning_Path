@@ -1,0 +1,32 @@
+{
+    "profils": [
+        {
+            "id": "etudiant_debutant",
+            "nom": "Amina",
+            "score_initial": 25,
+            "historique": [
+                {"notion": "Agents Intelligents", "maitrise": false}
+            ],
+            "description": "Débutante complète. L'IA doit tout lui apprendre."
+        },
+        {
+            "id": "etudiant_intermediaire",
+            "nom": "Yassine",
+            "score_initial": 55,
+            "historique": [
+                {"notion": "Agents Intelligents", "maitrise": true}
+            ],
+            "description": "Connaît les bases. L'IA va sauter l'introduction."
+        },
+        {
+            "id": "etudiant_avance",
+            "nom": "Sarah",
+            "score_initial": 85,
+            "historique": [
+                {"notion": "Agents Intelligents", "maitrise": true},
+                {"notion": "Architecture SMA", "maitrise": true}
+            ],
+            "description": "Experte. L'IA propose directement des révisions complexes."
+        }
+    ]
+}

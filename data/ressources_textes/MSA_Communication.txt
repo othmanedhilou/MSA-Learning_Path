@@ -1,0 +1,5 @@
+NOTION: Communication Inter-agents & FIPA-ACL. 
+    Pour collaborer, les agents utilisent un langage de communication appelé ACL (Agent Communication Language). 
+    Le standard FIPA-ACL définit des 'performatives' (types de messages) comme INFORM (pour donner une info), 
+    REQUEST (pour demander une action), ou QUERY (pour poser une question). 
+    Cela permet l'interopérabilité entre différents systèmes multi-agents.

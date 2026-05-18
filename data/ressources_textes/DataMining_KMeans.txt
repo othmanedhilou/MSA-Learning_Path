@@ -1,0 +1,4 @@
+NOTION: K-Means Clustering. 
+    C'est un algorithme d'apprentissage non supervisé utilisé pour le partitionnement de données. 
+    L'objectif est de diviser N observations en K groupes (clusters) dans lesquels chaque observation appartient au groupe 
+    avec la moyenne la plus proche (le centroïde). C'est une méthode de minimisation de l'inertie intra-classe.
