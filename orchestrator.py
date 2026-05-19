@@ -19,12 +19,12 @@ except ImportError:
     def add_messages(left, right):
         return (left or []) + (right or [])
 
-from diagnostician   import AgentDiagnostician
-from planner         import AgentPlanificateur
+from agent_diagnostician import AgentDiagnostician
+from agent_planner       import AgentPlanificateur
 from agent_pedagogue import AgentPedagogue
 from agent_coach     import AgentCoach
 from agent_tracker   import AgentTracker
-from a2a_protocol    import create_a2a_msg, format_timeline_text, REQUEST, INFORM, QUERY, CONFIRM
+from a2a_protocol    import create_a2a_msg, format_timeline_text, REQUEST, INFORM, QUERY, CONFIRM, FAILURE
 from mind_layer      import reason_planificateur, LLM_PROVIDER
 
 
@@ -72,88 +72,131 @@ def _agents():
 # Nodes LangGraph — un node par agent
 
 def diagnosticien_node(state: LearningState) -> dict:
-    """Lance le test adaptatif et identifie les lacunes de l'étudiant."""
-    _agents()
+    """Lance le diagnostic ou déclenche une session de révision SM-2 si des notions sont dues."""
     cid = (state.get("communications") or [{}])[0].get("conversation_id", CONVERSATION_ID)
-
-    # Message A2A : l'orchestrateur demande au Diagnosticien de lancer le test
     req = create_a2a_msg("Orchestrateur", "Diagnosticien", REQUEST,
                          {"action": "run_diagnostic", "module": state["module"]},
                          conversation_id=cid)
+    try:
+        _agents()
+        nom = state["nom_etudiant"]
 
-    profile = state.get("profile_data") or {"nom": state["nom_etudiant"], "score_initial": 50, "historique": []}
-    rapport = _diagnosticien.run_diagnostic_for_profile(state["module"], profile)
+        # Vérifier si des révisions SM-2 sont dues aujourd'hui pour cet étudiant
+        planning_sm2 = _coach.get_planning(nom)
 
-    # Message A2A : le Diagnosticien renvoie son rapport à l'orchestrateur
-    reply = create_a2a_msg("Diagnosticien", "Orchestrateur", INFORM,
-                           {"score": rapport["pourcentage"],
-                            "lacunes": rapport["lacunes"],
-                            "notion_cible": rapport["notion_cible"]},
-                           conversation_id=cid)
+        if planning_sm2:
+            # Mode révision : des notions sont dues selon SM-2 — priorité sur le diagnostic normal
+            notions_dues = [p["notion"] for p in planning_sm2]
+            rapport = {
+                "etudiant":          nom,
+                "module":            state["module"],
+                "score":             0,
+                "total":             len(notions_dues),
+                "pourcentage":       0,
+                "notions_maitrisees": [],
+                "lacunes":           notions_dues,
+                "notion_cible":      notions_dues[0],
+                "niveau_global":     "Révision SM-2",
+                "raisonnement":      (
+                    f"**Mode révision SM-2** : {len(notions_dues)} notion(s) programmée(s) pour aujourd'hui.\n"
+                    f"Notions à réviser : {', '.join(notions_dues)}"
+                ),
+                "mode": "revision"
+            }
+        else:
+            # Mode diagnostic normal
+            profile = state.get("profile_data") or {
+                "nom": nom, "score_initial": 50, "historique": []
+            }
+            rapport = _diagnosticien.run_diagnostic_for_profile(state["module"], profile)
+            rapport["mode"] = "diagnostic"
 
-    return {
-        "diagnostic":        rapport,
-        "raisonnement_diag": rapport.get("raisonnement", ""),
-        "communications":    [req, reply]
-    }
+        reply = create_a2a_msg("Diagnosticien", "Orchestrateur", INFORM,
+                               {"score": rapport["pourcentage"],
+                                "lacunes": rapport["lacunes"],
+                                "notion_cible": rapport["notion_cible"],
+                                "mode": rapport.get("mode", "diagnostic")},
+                               conversation_id=cid)
+        return {
+            "diagnostic":        rapport,
+            "raisonnement_diag": rapport.get("raisonnement", ""),
+            "communications":    [req, reply]
+        }
+    except Exception as e:
+        failure = create_a2a_msg("Diagnosticien", "Orchestrateur", FAILURE,
+                                 {"erreur": str(e)}, conversation_id=cid)
+        fallback = {
+            "etudiant": state.get("nom_etudiant", "?"), "module": state.get("module", "?"),
+            "score": 0, "total": 0, "pourcentage": 0,
+            "notions_maitrisees": [], "lacunes": [], "notion_cible": "N/A",
+            "niveau_global": "Erreur", "raisonnement": f"Erreur Diagnosticien : {e}", "mode": "error"
+        }
+        return {"diagnostic": fallback, "raisonnement_diag": "", "communications": [req, failure]}
 
 
 def planificateur_node(state: LearningState) -> dict:
     """Construit le parcours d'apprentissage ordonné par prérequis, avec SM-2."""
-    _agents()
     cid = state["communications"][0]["conversation_id"]
-
     req = create_a2a_msg("Orchestrateur", "Planificateur", REQUEST,
                          {"action": "build_parcours", "lacunes": state["diagnostic"]["lacunes"]},
                          conversation_id=cid)
-
-    rapport = _planificateur.construire_parcours(
-        module=state["module"],
-        lacunes=state["diagnostic"]["lacunes"],
-        notions_maitrisees=state["diagnostic"]["notions_maitrisees"],
-        nom_etudiant=state["nom_etudiant"]
-    )
-
-    # Raisonnement Chain-of-Thought via le LLM (ou fallback déterministe)
-    raisonnement = reason_planificateur(state["diagnostic"], rapport.get("parcours", []))
-
-    reply = create_a2a_msg("Planificateur", "Orchestrateur", INFORM,
-                           {"nb_etapes": len(rapport.get("parcours", [])),
-                            "duree_h": rapport.get("resume", {}).get("duree_totale_h", 0),
-                            "llm_provider": LLM_PROVIDER},
-                           conversation_id=cid)
-
-    return {
-        "parcours":       rapport.get("parcours", []),
-        "raisonnement":   raisonnement,
-        "communications": [req, reply]
-    }
+    try:
+        _agents()
+        rapport = _planificateur.construire_parcours(
+            module=state["module"],
+            lacunes=state["diagnostic"]["lacunes"],
+            notions_maitrisees=state["diagnostic"]["notions_maitrisees"],
+            nom_etudiant=state["nom_etudiant"]
+        )
+        raisonnement = reason_planificateur(state["diagnostic"], rapport.get("parcours", []))
+        reply = create_a2a_msg("Planificateur", "Orchestrateur", INFORM,
+                               {"nb_etapes": len(rapport.get("parcours", [])),
+                                "duree_h": rapport.get("resume", {}).get("duree_totale_h", 0),
+                                "llm_provider": LLM_PROVIDER},
+                               conversation_id=cid)
+        return {"parcours": rapport.get("parcours", []), "raisonnement": raisonnement,
+                "communications": [req, reply]}
+    except Exception as e:
+        failure = create_a2a_msg("Planificateur", "Orchestrateur", FAILURE,
+                                 {"erreur": str(e)}, conversation_id=cid)
+        return {"parcours": [], "raisonnement": f"Erreur Planificateur : {e}",
+                "communications": [req, failure]}
 
 
 def pedagogue_node(state: LearningState) -> dict:
-    """Sélectionne les ressources pédagogiques via RAG vectoriel (Chroma)."""
-    _agents()
-    cid          = state["communications"][0]["conversation_id"]
-    notion_cible = state["diagnostic"]["notion_cible"]
-
+    """Recherche des ressources RAG pour TOUTES les lacunes détectées."""
+    cid    = state["communications"][0]["conversation_id"]
+    lacunes = state["diagnostic"]["lacunes"]
     req = create_a2a_msg("Orchestrateur", "Pedagogue", QUERY,
-                         {"query": notion_cible}, conversation_id=cid)
+                         {"lacunes": lacunes, "nb_lacunes": len(lacunes)},
+                         conversation_id=cid)
+    try:
+        _agents()
+        # Chercher des ressources pour chaque lacune (max 2 par lacune, sans doublons)
+        ressources = []
+        sources_vues = set()
+        for lacune in lacunes:
+            for r in _pedagogue.chercher_ressources(lacune)[:2]:
+                src = r.get("source", "")
+                if src not in sources_vues:
+                    r["lacune_cible"] = lacune  # tag pour affichage groupé dans l'UI
+                    ressources.append(r)
+                    sources_vues.add(src)
 
-    # _pedagogue utilise la même logique que @mcp.tool search_ressources_rag dans learning_tools_server
-    # On appelle l'instance directe pour éviter de charger le modèle embedding deux fois en mémoire
-    ressources = _pedagogue.chercher_ressources(notion_cible)
-
-    reply = create_a2a_msg("Pedagogue", "Orchestrateur", INFORM,
-                           {"nb_ressources": len(ressources),
-                            "sources": [r.get("source", "?") for r in ressources[:3]]},
-                           conversation_id=cid)
-
-    return {"ressources": ressources, "communications": [req, reply]}
+        reply = create_a2a_msg("Pedagogue", "Orchestrateur", INFORM,
+                               {"nb_ressources": len(ressources),
+                                "lacunes_couvertes": lacunes,
+                                "sources": [r.get("source", "?") for r in ressources[:3]]},
+                               conversation_id=cid)
+        return {"ressources": ressources, "communications": [req, reply]}
+    except Exception as e:
+        failure = create_a2a_msg("Pedagogue", "Orchestrateur", FAILURE,
+                                 {"erreur": str(e)}, conversation_id=cid)
+        return {"ressources": [], "communications": [req, failure]}
 
 
 def coach_node(state: LearningState) -> dict:
-    """Calcule la prochaine révision avec l'algorithme SuperMemo-2."""
-    _agents()
+    """Calcule la prochaine révision SM-2 pour toutes les lacunes."""
     cid          = state["communications"][0]["conversation_id"]
     notion_cible = state["diagnostic"]["notion_cible"]
     score        = state["diagnostic"]["pourcentage"]
@@ -162,64 +205,64 @@ def coach_node(state: LearningState) -> dict:
     req = create_a2a_msg("Orchestrateur", "Coach", REQUEST,
                          {"action": "schedule_review", "notion": notion_cible, "qualite": qualite},
                          conversation_id=cid)
+    try:
+        _agents()
+        # Calculer SM-2 pour la notion prioritaire
+        res_sm2 = _coach.calculer_revision(state["nom_etudiant"], notion_cible, qualite)
 
-    res_sm2 = _coach.calculer_revision(state["nom_etudiant"], notion_cible, qualite)
+        # Calculer aussi SM-2 pour les autres lacunes (pour planning complet)
+        autres_lacunes = [l for l in state["diagnostic"]["lacunes"] if l != notion_cible]
+        for lacune in autres_lacunes:
+            _coach.calculer_revision(state["nom_etudiant"], lacune, 0)  # qualité 0 = à apprendre
 
-    reply = create_a2a_msg("Coach", "Orchestrateur", INFORM,
-                           {"intervalle_jours": res_sm2["intervalle_jours"],
-                            "prochaine_revision": res_sm2["prochaine_revision"]},
-                           conversation_id=cid)
-
-    return {
-        "revision":           res_sm2,
-        "raisonnement_coach": res_sm2.get("raisonnement", ""),
-        "communications":     [req, reply]
-    }
+        reply = create_a2a_msg("Coach", "Orchestrateur", INFORM,
+                               {"intervalle_jours": res_sm2["intervalle_jours"],
+                                "prochaine_revision": res_sm2["prochaine_revision"],
+                                "nb_notions_planifiees": len(state["diagnostic"]["lacunes"])},
+                               conversation_id=cid)
+        return {"revision": res_sm2, "raisonnement_coach": res_sm2.get("raisonnement", ""),
+                "communications": [req, reply]}
+    except Exception as e:
+        failure = create_a2a_msg("Coach", "Orchestrateur", FAILURE,
+                                 {"erreur": str(e)}, conversation_id=cid)
+        return {"revision": {}, "raisonnement_coach": "", "communications": [req, failure]}
 
 
 def tracker_node(state: LearningState) -> dict:
-    """Persiste la session en mémoire long-terme (JSON)."""
-    _agents()
+    """Persiste la session en mémoire long-terme — toutes les lacunes, pas seulement la cible."""
     cid    = state["communications"][0]["conversation_id"]
     notion = state["diagnostic"]["notion_cible"]
     score  = state["diagnostic"]["pourcentage"] // 20  # 0-5
 
     req = create_a2a_msg("Orchestrateur", "Tracker", REQUEST,
                          {"action": "save_session"}, conversation_id=cid)
+    try:
+        _agents()
+        raisonnement_tracker = _tracker.sauver_progres(state["nom_etudiant"], notion, score)
 
-    raisonnement_tracker = _tracker.sauver_progres(state["nom_etudiant"], notion, score)
+        saved = {
+            "etudiant":           state["nom_etudiant"],
+            "module":             state["module"],
+            "score_final":        state["diagnostic"]["pourcentage"],
+            "notion_cible":       notion,
+            "toutes_lacunes":     state["diagnostic"]["lacunes"],
+            "prochaine_revision": state.get("revision", {}).get("prochaine_revision"),
+            "timestamp":          datetime.now().isoformat()
+        }
 
-    saved = {
-        "etudiant":           state["nom_etudiant"],
-        "module":             state["module"],
-        "score_final":        state["diagnostic"]["pourcentage"],
-        "notion_cible":       notion,
-        "prochaine_revision": state.get("revision", {}).get("prochaine_revision"),
-        "timestamp":          datetime.now().isoformat()
-    }
+        # Persistance via l'implémentation MCP (même fonction que @mcp.tool update_profile_ltm)
+        from learning_tools_server import update_profile_ltm_impl
+        update_profile_ltm_impl(state["nom_etudiant"], saved)
 
-    # Sauvegarde du profil long-terme
-    profils_path = os.path.join(os.path.dirname(__file__), 'data', 'profils_etudiants.json')
-    profils = {}
-    if os.path.exists(profils_path):
-        try:
-            with open(profils_path, 'r', encoding='utf-8') as f:
-                profils = json.load(f)
-        except Exception:
-            profils = {}
-    # Persistance via l'implémentation MCP (même fonction exposée via @mcp.tool dans learning_tools_server)
-    from learning_tools_server import update_profile_ltm_impl
-    update_profile_ltm_impl(state["nom_etudiant"], saved)
-
-    reply = create_a2a_msg("Tracker", "Orchestrateur", CONFIRM,
-                           {"status": "saved", "path": "data/profils_etudiants.json"},
-                           conversation_id=cid)
-
-    return {
-        "profile_saved":        saved,
-        "raisonnement_tracker": raisonnement_tracker or "",
-        "communications":       [req, reply]
-    }
+        reply = create_a2a_msg("Tracker", "Orchestrateur", CONFIRM,
+                               {"status": "saved", "path": "data/profils_etudiants.json"},
+                               conversation_id=cid)
+        return {"profile_saved": saved, "raisonnement_tracker": raisonnement_tracker or "",
+                "communications": [req, reply]}
+    except Exception as e:
+        failure = create_a2a_msg("Tracker", "Orchestrateur", FAILURE,
+                                 {"erreur": str(e)}, conversation_id=cid)
+        return {"profile_saved": {}, "raisonnement_tracker": "", "communications": [req, failure]}
 
 
 # Conditional edge LangGraph :

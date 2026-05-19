@@ -10,7 +10,7 @@ from orchestrator import run_session, LANGGRAPH_AVAILABLE
 from a2a_protocol import format_timeline_html
 from mind_layer import LLM_PROVIDER
 from rag_engine import VECTOR_RAG_AVAILABLE
-from diagnostician import AgentDiagnostician
+from agent_diagnostician import AgentDiagnostician
 
 _diagnosticien = AgentDiagnostician()
 
@@ -477,7 +477,11 @@ elif st.session_state.phase == "RESULTATS":
 
     with col_main:
         # ── Décision routage (visible pour le jury) ──
-        if diag.get('pourcentage', 0) >= 80:
+        mode = diag.get('mode', 'diagnostic')
+        if mode == 'revision':
+            st.warning("🔁 **Mode révision SM-2** : des notions programmées sont dues aujourd'hui. "
+                       "Le Diagnosticien a priorisé le planning SM-2 plutôt qu'un nouveau diagnostic.")
+        elif diag.get('pourcentage', 0) >= 80:
             st.info("🎯 **Conditional Edge LangGraph activée** : étudiant avancé → "
                     "saut du Planificateur et du Pédagogue, accès direct au Coach.")
         else:
@@ -542,22 +546,32 @@ elif st.session_state.phase == "RESULTATS":
                 </div>
                 """, unsafe_allow_html=True)
 
-        # ── Ressources RAG ──
+        # ── Ressources RAG — groupées par lacune ──
         if ressources:
-            st.subheader(f"📚 Ressources RAG pour « {diag.get('notion_cible', 'N/A')} »")
-            for r in ressources[:5]:
-                contenu = r.get('contenu', r.get('description', ''))
-                st.markdown(f"""
-                <div class="resource-card">
-                    <h4 style="margin:0;">{r.get('type', 'Ressource')}</h4>
-                    <p style="color:#475569;margin:8px 0;font-size:0.9rem;">
-                        {contenu[:300]}{'...' if len(contenu) > 300 else ''}
-                    </p>
-                    <small style="color:#64748b;">📂 Source : {r.get('source', 'inconnue')}</small>
-                </div>
-                """, unsafe_allow_html=True)
-                if r.get('url') and r['url'] != '#':
-                    st.link_button(f"🚀 Ouvrir {r.get('type', '')}", r['url'])
+            st.subheader(f"📚 Ressources RAG — {len(diag.get('lacunes', []))} lacune(s) couverte(s)")
+
+            # Grouper les ressources par lacune cible
+            from collections import defaultdict
+            ressources_par_lacune = defaultdict(list)
+            for r in ressources:
+                lacune_tag = r.get('lacune_cible', diag.get('notion_cible', 'Général'))
+                ressources_par_lacune[lacune_tag].append(r)
+
+            for lacune, res_lacune in ressources_par_lacune.items():
+                st.markdown(f"**🎯 Lacune : {lacune}**")
+                for r in res_lacune:
+                    contenu = r.get('contenu', r.get('description', ''))
+                    st.markdown(f"""
+                    <div class="resource-card">
+                        <h4 style="margin:0;">{r.get('type', 'Ressource')}</h4>
+                        <p style="color:#475569;margin:8px 0;font-size:0.9rem;">
+                            {contenu[:300]}{'...' if len(contenu) > 300 else ''}
+                        </p>
+                        <small style="color:#64748b;">📂 Source : {r.get('source', 'inconnue')}</small>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    if r.get('url') and r['url'] != '#':
+                        st.link_button(f"🚀 Ouvrir {r.get('type', '')}", r['url'])
 
         # ── Révision SM-2 ──
         if revision:

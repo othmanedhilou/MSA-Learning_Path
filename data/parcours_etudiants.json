@@ -1680,5 +1680,327 @@
             "date_debut": "2026-05-19",
             "date_fin_estimee": "2026-05-20"
         }
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "parcours": [
+            {
+                "ordre": 1,
+                "notion": "Framework CrewAI",
+                "niveau_difficulte": 3,
+                "statut": "lacune",
+                "date_session": "2026-05-19",
+                "duree_estimee_min": 60,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 2,
+                "notion": "Framework LangGraph",
+                "niveau_difficulte": 4,
+                "statut": "lacune",
+                "date_session": "2026-05-20",
+                "duree_estimee_min": 90,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            }
+        ],
+        "resume": {
+            "nb_notions": 2,
+            "duree_totale_min": 150,
+            "duree_totale_h": 2.5,
+            "nb_jours_estime": 2,
+            "date_debut": "2026-05-19",
+            "date_fin_estimee": "2026-05-20"
+        }
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "parcours": [
+            {
+                "ordre": 1,
+                "notion": "Framework CrewAI",
+                "niveau_difficulte": 3,
+                "statut": "lacune",
+                "date_session": "2026-05-19",
+                "duree_estimee_min": 60,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 2,
+                "notion": "Framework LangGraph",
+                "niveau_difficulte": 4,
+                "statut": "lacune",
+                "date_session": "2026-05-20",
+                "duree_estimee_min": 90,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            }
+        ],
+        "resume": {
+            "nb_notions": 2,
+            "duree_totale_min": 150,
+            "duree_totale_h": 2.5,
+            "nb_jours_estime": 2,
+            "date_debut": "2026-05-19",
+            "date_fin_estimee": "2026-05-20"
+        }
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "parcours": [
+            {
+                "ordre": 1,
+                "notion": "Framework CrewAI",
+                "niveau_difficulte": 3,
+                "statut": "lacune",
+                "date_session": "2026-05-19",
+                "duree_estimee_min": 60,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 2,
+                "notion": "Framework LangGraph",
+                "niveau_difficulte": 4,
+                "statut": "lacune",
+                "date_session": "2026-05-20",
+                "duree_estimee_min": 90,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            }
+        ],
+        "resume": {
+            "nb_notions": 2,
+            "duree_totale_min": 150,
+            "duree_totale_h": 2.5,
+            "nb_jours_estime": 2,
+            "date_debut": "2026-05-19",
+            "date_fin_estimee": "2026-05-20"
+        }
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "parcours": [
+            {
+                "ordre": 1,
+                "notion": "Agents Intelligents",
+                "niveau_difficulte": 1,
+                "statut": "lacune",
+                "date_session": "2026-05-19",
+                "duree_estimee_min": 30,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 2,
+                "notion": "Communication Inter-agents",
+                "niveau_difficulte": 2,
+                "statut": "lacune",
+                "date_session": "2026-05-20",
+                "duree_estimee_min": 45,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 3,
+                "notion": "Framework CrewAI",
+                "niveau_difficulte": 3,
+                "statut": "lacune",
+                "date_session": "2026-05-21",
+                "duree_estimee_min": 60,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 4,
+                "notion": "Framework LangGraph",
+                "niveau_difficulte": 4,
+                "statut": "lacune",
+                "date_session": "2026-05-22",
+                "duree_estimee_min": 90,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            }
+        ],
+        "resume": {
+            "nb_notions": 4,
+            "duree_totale_min": 225,
+            "duree_totale_h": 3.8,
+            "nb_jours_estime": 4,
+            "date_debut": "2026-05-19",
+            "date_fin_estimee": "2026-05-22"
+        }
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "parcours": [
+            {
+                "ordre": 1,
+                "notion": "Framework CrewAI",
+                "niveau_difficulte": 3,
+                "statut": "lacune",
+                "date_session": "2026-05-19",
+                "duree_estimee_min": 60,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 2,
+                "notion": "Framework LangGraph",
+                "niveau_difficulte": 4,
+                "statut": "lacune",
+                "date_session": "2026-05-20",
+                "duree_estimee_min": 90,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            }
+        ],
+        "resume": {
+            "nb_notions": 2,
+            "duree_totale_min": 150,
+            "duree_totale_h": 2.5,
+            "nb_jours_estime": 2,
+            "date_debut": "2026-05-19",
+            "date_fin_estimee": "2026-05-20"
+        }
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "parcours": [
+            {
+                "ordre": 1,
+                "notion": "Agents Intelligents",
+                "niveau_difficulte": 1,
+                "statut": "lacune",
+                "date_session": "2026-05-19",
+                "duree_estimee_min": 30,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 2,
+                "notion": "Communication Inter-agents",
+                "niveau_difficulte": 2,
+                "statut": "lacune",
+                "date_session": "2026-05-20",
+                "duree_estimee_min": 45,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 3,
+                "notion": "Framework CrewAI",
+                "niveau_difficulte": 3,
+                "statut": "lacune",
+                "date_session": "2026-05-21",
+                "duree_estimee_min": 60,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 4,
+                "notion": "Framework LangGraph",
+                "niveau_difficulte": 4,
+                "statut": "lacune",
+                "date_session": "2026-05-22",
+                "duree_estimee_min": 90,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            }
+        ],
+        "resume": {
+            "nb_notions": 4,
+            "duree_totale_min": 225,
+            "duree_totale_h": 3.8,
+            "nb_jours_estime": 4,
+            "date_debut": "2026-05-19",
+            "date_fin_estimee": "2026-05-22"
+        }
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "parcours": [
+            {
+                "ordre": 1,
+                "notion": "Framework CrewAI",
+                "niveau_difficulte": 3,
+                "statut": "lacune",
+                "date_session": "2026-05-19",
+                "duree_estimee_min": 60,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 2,
+                "notion": "Framework LangGraph",
+                "niveau_difficulte": 4,
+                "statut": "lacune",
+                "date_session": "2026-05-20",
+                "duree_estimee_min": 90,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            }
+        ],
+        "resume": {
+            "nb_notions": 2,
+            "duree_totale_min": 150,
+            "duree_totale_h": 2.5,
+            "nb_jours_estime": 2,
+            "date_debut": "2026-05-19",
+            "date_fin_estimee": "2026-05-20"
+        }
+    },
+    {
+        "etudiant": "mohamed",
+        "module": "MSA",
+        "parcours": [
+            {
+                "ordre": 1,
+                "notion": "Agents Intelligents",
+                "niveau_difficulte": 1,
+                "statut": "lacune",
+                "date_session": "2026-05-19",
+                "duree_estimee_min": 30,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 2,
+                "notion": "Framework CrewAI",
+                "niveau_difficulte": 3,
+                "statut": "lacune",
+                "date_session": "2026-05-20",
+                "duree_estimee_min": 60,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            },
+            {
+                "ordre": 3,
+                "notion": "Framework LangGraph",
+                "niveau_difficulte": 4,
+                "statut": "lacune",
+                "date_session": "2026-05-21",
+                "duree_estimee_min": 90,
+                "prochaine_revision": "2026-05-20",
+                "intervalle_revision": "Demain"
+            }
+        ],
+        "resume": {
+            "nb_notions": 3,
+            "duree_totale_min": 180,
+            "duree_totale_h": 3.0,
+            "nb_jours_estime": 3,
+            "date_debut": "2026-05-19",
+            "date_fin_estimee": "2026-05-21"
+        }
     }
 ]

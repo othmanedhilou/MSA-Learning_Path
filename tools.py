@@ -10,7 +10,7 @@ from langchain_core.tools import tool
 from agent_pedagogue import AgentPedagogue
 from agent_coach     import AgentCoach
 from agent_tracker   import AgentTracker
-from diagnostician   import AgentDiagnostician
+from agent_diagnostician import AgentDiagnostician
 
 _pedagogue     = None
 _coach         = None

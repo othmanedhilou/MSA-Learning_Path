@@ -288,5 +288,45 @@
         "etudiant": "Yassine",
         "notion": "Framework CrewAI",
         "score": 2
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "othmane",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "mohamed",
+        "notion": "Agents Intelligents",
+        "score": 1
     }
 ]

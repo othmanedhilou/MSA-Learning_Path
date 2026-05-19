@@ -5,7 +5,8 @@
     "score_final": 0,
     "notion_cible": "Agents Intelligents",
     "prochaine_revision": "2026-05-20",
-    "timestamp": "2026-05-19T21:19:14.628001"
+    "timestamp": "2026-05-19T22:04:08.974685",
+    "updated_at": "2026-05-19T22:04:08.985647"
   },
   "Yassine": {
     "etudiant": "Yassine",
@@ -13,14 +14,36 @@
     "score_final": 50,
     "notion_cible": "Framework CrewAI",
     "prochaine_revision": "2026-05-20",
-    "timestamp": "2026-05-19T21:20:46.081267"
+    "timestamp": "2026-05-19T22:05:19.638871",
+    "updated_at": "2026-05-19T22:05:19.652439"
   },
   "Sarah": {
     "etudiant": "Sarah",
     "module": "MSA",
     "score_final": 100,
     "notion_cible": "Framework LangGraph",
-    "prochaine_revision": "2230-03-29",
-    "timestamp": "2026-05-19T21:16:49.268345"
+    "prochaine_revision": "2711-05-08",
+    "timestamp": "2026-05-19T22:01:45.507696",
+    "updated_at": "2026-05-19T22:01:45.524545"
+  },
+  "othmane": {
+    "created_at": "2026-05-19T22:01:49.967608",
+    "etudiant": "othmane",
+    "module": "MSA",
+    "score_final": 100,
+    "notion_cible": "Framework LangGraph",
+    "prochaine_revision": "2026-05-20",
+    "timestamp": "2026-05-19T22:01:49.634104",
+    "updated_at": "2026-05-19T22:01:49.967631"
+  },
+  "mohamed": {
+    "created_at": "2026-05-19T22:06:49.115819",
+    "etudiant": "mohamed",
+    "module": "MSA",
+    "score_final": 25,
+    "notion_cible": "Agents Intelligents",
+    "prochaine_revision": "2026-05-20",
+    "timestamp": "2026-05-19T22:06:49.098899",
+    "updated_at": "2026-05-19T22:06:49.115839"
   }
 }
