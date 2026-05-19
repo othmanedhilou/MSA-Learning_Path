@@ -1,6 +1,7 @@
 import json
 import os
 import random
+from mind_layer import reason_diagnosticien
 
 class AgentDiagnostician:
     def __init__(self):
@@ -226,8 +227,9 @@ class AgentDiagnostician:
             "notions_maitrisees": notions_maitrisees,
             "lacunes": lacunes,
             "notion_cible": notion_cible,
-            "niveau_global": self._evaluer_niveau(pourcentage)
+            "niveau_global": self._evaluer_niveau(pourcentage),
         }
+        rapport["raisonnement"] = reason_diagnosticien(rapport)
         self._sauver_rapport(rapport)
         return rapport
 

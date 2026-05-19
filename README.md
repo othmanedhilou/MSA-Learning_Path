@@ -224,7 +224,9 @@ MSA-Learning_Path/
 ├── diagnostician.py           ← Agent Diagnosticien (test adaptatif)
 ├── planner.py                 ← Agent Planificateur (CoT + SM-2)
 ├── sm2.py                     ← Algorithme SuperMemo-2
-├── agents_dodo.py             ← AgentPedagogue + AgentTracker
+├── agent_pedagogue.py         ← Agent Pédagogue (RAG vectoriel Chroma)
+├── agent_coach.py             ← Agent Coach (algorithme SuperMemo-2)
+├── agent_tracker.py           ← Agent Tracker (persistance JSON long-terme)
 ├── setup_data.py              ← Génération des fichiers texte ressources
 │
 ├── app.py                     ← Interface Streamlit (3 phases)

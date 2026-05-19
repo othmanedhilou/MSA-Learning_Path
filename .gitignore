@@ -1,10 +1,3 @@
-# Documentation (à garder local)
-DECOUVRE_MOI_DABORD.md
-INDEX.md
-RAPPORT_COMPLET.md
-GUIDE_PRATIQUE.md
-GUIDE_VISUEL.md
-
 # Python
 __pycache__/
 *.pyc
@@ -12,7 +5,27 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+
+# Environnement
 .env
+.venv/
+venv/
+
+# Données générées à l'exécution
+data/chroma_db/
+data/profils_etudiants.json
+data/historique_etudiants.json
+data/parcours_etudiants.json
+data/rapports_diagnostic.json
+data/sm2_profils.json
+data/graph_orchestrator.png
+
+# Présentations et docs (déplacés dans multi_ag_archive)
+*.pptx
+*.pdf
+doc_parts/
+generate_*.py
+~$*
 
 # IDEs
 .vscode/
@@ -26,3 +39,6 @@ Thumbs.db
 
 # Streamlit
 .streamlit/
+
+# Pytest
+.pytest_cache/

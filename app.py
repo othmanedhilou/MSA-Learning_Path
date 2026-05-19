@@ -341,12 +341,30 @@ elif st.session_state.phase == "RESULTATS":
 
             st.markdown(f"**🎯 Notion cible :** `{diag.get('notion_cible', 'N/A')}`")
 
-        # ── Raisonnement Chain-of-Thought (Mind Layer) ──
+        # ── Raisonnements Chain-of-Thought (Mind Layer — tous les agents) ──
+        raisonnement_diag = result.get("raisonnement_diag", "")
+        if raisonnement_diag:
+            with st.expander("🩺 Raisonnement Agent Diagnosticien (Chain-of-Thought)"):
+                st.markdown(raisonnement_diag)
+                st.caption(f"Provider LLM : `{LLM_PROVIDER}`")
+
         raisonnement = result.get("raisonnement", "")
         if raisonnement:
-            with st.expander("🧠 Raisonnement de l'Agent Planificateur (Chain-of-Thought)",
+            with st.expander("🗺️ Raisonnement Agent Planificateur (Chain-of-Thought)",
                               expanded=True):
                 st.markdown(raisonnement)
+                st.caption(f"Provider LLM : `{LLM_PROVIDER}`")
+
+        raisonnement_coach = result.get("raisonnement_coach", "")
+        if raisonnement_coach:
+            with st.expander("🔁 Raisonnement Agent Coach — SM-2 (Chain-of-Thought)"):
+                st.markdown(raisonnement_coach)
+                st.caption(f"Provider LLM : `{LLM_PROVIDER}`")
+
+        raisonnement_tracker = result.get("raisonnement_tracker", "")
+        if raisonnement_tracker:
+            with st.expander("💾 Raisonnement Agent Tracker (Chain-of-Thought)"):
+                st.markdown(raisonnement_tracker)
                 st.caption(f"Provider LLM : `{LLM_PROVIDER}`")
 
         # ── Parcours ──

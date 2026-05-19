@@ -1,39 +1,20 @@
-"""
-Mind Layer — Couche LLM pour les agents
-══════════════════════════════════════════════════════
-
-Référence cours :
-  • Chapitre 1 — Prompt Engineering (Zero-shot, Few-shot, CoT, ReAct)
-  • Chapitre 3 — Agentic AI : Agent = Mind (LLM) + Body + Memory
-  • Chapitre 4 — LangChain create_agent + middleware @wrap_model_call
-
-Ce module expose une fonction `reason()` qui :
-  1. Tente d'appeler un LLM réel si une clé API est disponible
-     (OpenRouter / Gemini / OpenAI selon les variables d'environnement)
-  2. Sinon, retombe sur un fallback déterministe basé sur des templates
-     (mode démo offline, garantit que la démo jour J fonctionne sans réseau)
-
-Cette double stratégie est conforme aux 6 règles MCP du cours :
-"6. Moindre privilège" — pas de secret en dur, variables d'env uniquement.
-"""
+# Mind Layer — couche LLM partagée par tous les agents du SMA
+# Tente d'appeler un vrai LLM (OpenRouter / OpenAI / Gemini) selon la clé API disponible.
+# Si aucune clé n'est trouvée, bascule sur un fallback déterministe (templates structurés)
+# qui reproduit la structure d'un raisonnement Chain-of-Thought — la démo marche toujours.
 import os
-from typing import Optional, Literal
-
-# Charger les variables d'environnement depuis .env
 from dotenv import load_dotenv
 load_dotenv()
 
-# ──────────────────────────────────────────────────────────────
-# Détection automatique du provider LLM disponible
-# ──────────────────────────────────────────────────────────────
 LLM_PROVIDER = None
-_llm_client = None
+_llm_client  = None
+
 
 def _try_init_llm():
-    """Détecte la clé API disponible et instancie le client correspondant."""
+    """Détecte la clé API disponible et instancie le client LangChain correspondant."""
     global LLM_PROVIDER, _llm_client
 
-    # 1. OpenRouter (gratuit, modèles open-source — cf. cours du prof)
+    # 1. OpenRouter — accès à des modèles open-source via une seule clé
     if os.getenv("OPENROUTER_API_KEY"):
         try:
             from langchain_openai import ChatOpenAI
@@ -52,155 +33,199 @@ def _try_init_llm():
     if os.getenv("OPENAI_API_KEY"):
         try:
             from langchain_openai import ChatOpenAI
-            _llm_client = ChatOpenAI(
-                model="gpt-4o-mini",
-                temperature=0
-            )
+            _llm_client = ChatOpenAI(model="gpt-4o-mini", temperature=0)
             LLM_PROVIDER = "openai"
             return
         except Exception:
             pass
 
-    # 3. Google Gemini (gratuit)
+    # 3. Google Gemini (gratuit avec clé)
     if os.getenv("GOOGLE_API_KEY"):
         try:
             from langchain_google_genai import ChatGoogleGenerativeAI
-            _llm_client = ChatGoogleGenerativeAI(
-                model="gemini-1.5-flash",
-                temperature=0
-            )
+            _llm_client = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0)
             LLM_PROVIDER = "gemini"
             return
         except Exception:
             pass
 
-    # 4. Pas de LLM disponible — mode déterministe
+    # Aucune clé trouvée — mode déterministe
     LLM_PROVIDER = "fallback"
+
 
 _try_init_llm()
 
 
-# ══════════════════════════════════════════════════════════════
-# PROMPTS — System Messages (Chapitre 1 du cours)
-# ══════════════════════════════════════════════════════════════
-
+# System prompts pour chaque agent — définissent le rôle et le format attendu
 PLANIFICATEUR_SYSTEM_PROMPT = """Tu es l'Agent Planificateur d'un Système Multi-Agents pédagogique.
+Analyse le diagnostic d'un étudiant et explique le parcours optimal en Chain-of-Thought.
+Sois concis (4-6 phrases max), raisonne en étapes numérotées, justifie l'ordre par les prérequis.
+Mentionne la durée estimée et le rythme de révision espacée (SM-2)."""
 
-Ton rôle : analyser le diagnostic d'un étudiant et expliquer le parcours d'apprentissage
-optimal en utilisant la technique Chain-of-Thought (raisonnement étape par étape).
+DIAGNOSTICIEN_SYSTEM_PROMPT = """Tu es l'Agent Diagnosticien d'un Système Multi-Agents pédagogique.
+Analyse le résultat du test adaptatif en Chain-of-Thought (3-4 étapes max).
+Identifie le pattern des lacunes (fondamentales ou avancées ?), conclus sur le niveau réel,
+indique la notion prioritaire à travailler et pourquoi."""
 
-Règles :
-1. Sois concis : 4-6 phrases maximum.
-2. Raisonne en étapes numérotées (Étape 1, Étape 2, ...).
-3. Justifie l'ordre des notions par les pré-requis pédagogiques.
-4. Mentionne la durée estimée et le rythme de répétition espacée (SM-2).
-5. Ne mentionne JAMAIS les concurrents ou autres systèmes externes.
+COACH_SYSTEM_PROMPT = """Tu es l'Agent Coach d'un Système Multi-Agents pédagogique.
+Explique en Chain-of-Thought (3-4 étapes) pourquoi l'intervalle SuperMemo-2 calculé est optimal.
+Relie la qualité de réponse obtenue, le facteur de facilité et la mémorisation long-terme."""
 
-Format de sortie : raisonnement structuré en étapes, puis recommandation finale."""
-
-
-PEDAGOGUE_SYSTEM_PROMPT = """Tu es l'Agent Pédagogue. À partir des ressources RAG fournies,
-synthétise en 2-3 phrases pourquoi elles sont pertinentes pour cet étudiant.
-
-Sois bienveillant, en français, ton professionnel."""
+TRACKER_SYSTEM_PROMPT = """Tu es l'Agent Tracker d'un Système Multi-Agents pédagogique.
+Explique en 2-3 phrases ce qui vient d'être sauvegardé et son impact sur les sessions futures."""
 
 
-# ══════════════════════════════════════════════════════════════
-# FONCTIONS DE RAISONNEMENT
-# ══════════════════════════════════════════════════════════════
-
-def reason_planificateur(diagnostic: dict, parcours: list) -> str:
-    """Génère le raisonnement Chain-of-Thought du Planificateur.
-
-    Args:
-        diagnostic: rapport du Diagnosticien (score, lacunes, ...)
-        parcours: liste des étapes calculées par planner.py
-
-    Returns:
-        Texte de raisonnement (CoT) — soit généré par LLM, soit par template.
-    """
-    if LLM_PROVIDER != "fallback" and _llm_client is not None:
-        return _reason_with_llm(diagnostic, parcours)
-    return _reason_fallback(diagnostic, parcours)
-
-
-def _reason_with_llm(diagnostic: dict, parcours: list) -> str:
-    """Vrai appel LLM avec Chain-of-Thought."""
+def get_llm_with_tools():
+    """Retourne le LLM avec les outils @tool bindés — le LLM peut alors les appeler (ReAct)."""
+    if _llm_client is None:
+        return None
     try:
-        from langchain_core.messages import SystemMessage, HumanMessage
-
-        lacunes_txt = ", ".join(diagnostic.get("lacunes", [])) or "aucune"
-        maitrise_txt = ", ".join(diagnostic.get("notions_maitrisees", [])) or "aucune"
-        etapes_txt = " → ".join(e.get("notion", "?") for e in parcours) or "rien"
-
-        user_prompt = f"""Étudiant : {diagnostic.get('etudiant')}
-Module : {diagnostic.get('module')}
-Score : {diagnostic.get('pourcentage')}%
-Notions maîtrisées : {maitrise_txt}
-Lacunes : {lacunes_txt}
-Parcours proposé (ordre) : {etapes_txt}
-
-Explique-moi en Chain-of-Thought pourquoi cet ordre est pertinent."""
-
-        response = _llm_client.invoke([
-            SystemMessage(content=PLANIFICATEUR_SYSTEM_PROMPT),
-            HumanMessage(content=user_prompt)
-        ])
-        return response.content
-    except Exception as e:
-        # Si échec réseau, on retombe sur le fallback (jamais d'erreur jour J)
-        return _reason_fallback(diagnostic, parcours) + f"\n\n[Note: LLM unavailable, used fallback. Error: {str(e)[:80]}]"
+        # Import local pour éviter les imports circulaires au chargement du module
+        from tools import TOUS_LES_OUTILS
+        return _llm_client.bind_tools(TOUS_LES_OUTILS)
+    except Exception:
+        return _llm_client
 
 
-def _reason_fallback(diagnostic: dict, parcours: list) -> str:
-    """Génère un raisonnement déterministe basé sur des templates (mode offline).
+def _call_llm(system_prompt: str, user_prompt: str) -> str:
+    """Appel générique au LLM avec les tools bindés."""
+    from langchain_core.messages import SystemMessage, HumanMessage
+    llm = get_llm_with_tools() or _llm_client
+    response = llm.invoke([
+        SystemMessage(content=system_prompt),
+        HumanMessage(content=user_prompt)
+    ])
+    return response.content
 
-    Reproduit la STRUCTURE d'un raisonnement Chain-of-Thought.
-    """
-    score = diagnostic.get("pourcentage", 0)
-    lacunes = diagnostic.get("lacunes", [])
+
+# Raisonnement du Planificateur (Chain-of-Thought sur le parcours construit)
+def reason_planificateur(diagnostic: dict, parcours: list) -> str:
+    if LLM_PROVIDER != "fallback" and _llm_client is not None:
+        try:
+            lacunes  = ", ".join(diagnostic.get("lacunes", [])) or "aucune"
+            maitrise = ", ".join(diagnostic.get("notions_maitrisees", [])) or "aucune"
+            etapes   = " → ".join(e.get("notion", "?") for e in parcours) or "rien"
+            prompt = (
+                f"Étudiant : {diagnostic.get('etudiant')} | Module : {diagnostic.get('module')}\n"
+                f"Score : {diagnostic.get('pourcentage')}%\n"
+                f"Maîtrisées : {maitrise}\nLacunes : {lacunes}\n"
+                f"Parcours proposé : {etapes}\n\n"
+                f"Explique en Chain-of-Thought pourquoi cet ordre est pertinent."
+            )
+            return _call_llm(PLANIFICATEUR_SYSTEM_PROMPT, prompt)
+        except Exception:
+            pass
+
+    # Fallback déterministe — même structure que le LLM mais sans appel réseau
+    score      = diagnostic.get("pourcentage", 0)
+    lacunes    = diagnostic.get("lacunes", [])
     maitrisees = diagnostic.get("notions_maitrisees", [])
-    nb_etapes = len(parcours)
+    nb_etapes  = len(parcours)
 
     if score >= 80:
-        lines = [
-            f"**Étape 1 — Analyse du niveau** : Le score de {score}% indique un niveau avancé.",
-            f"**Étape 2 — Conclusion** : Toutes les notions clés sont déjà maîtrisées "
-            f"({len(maitrisees)} notion(s)).",
-            f"**Étape 3 — Décision (Conditional Edge LangGraph)** : "
-            f"je saute la phase de construction du parcours et délègue directement au Coach "
-            f"pour planifier les révisions espacées (SM-2).",
-            f"**Recommandation finale** : Maintenir l'acquis par révisions périodiques."
-        ]
+        return "\n".join([
+            f"**Étape 1 — Niveau** : {score}% → niveau avancé, {len(maitrisees)} notion(s) déjà maîtrisée(s).",
+            "**Étape 2 — Décision** : Conditional Edge LangGraph activée → Planificateur et Pédagogue sautés, direct au Coach.",
+            "**Recommandation** : Maintenir l'acquis par révisions espacées SM-2."
+        ])
     elif score >= 50:
-        lines = [
-            f"**Étape 1 — Analyse** : Score intermédiaire ({score}%) avec {len(lacunes)} lacune(s) "
-            f"sur les notions avancées.",
-            f"**Étape 2 — Identification des prérequis** : Les notions maîtrisées "
-            f"({', '.join(maitrisees[:2])}{'...' if len(maitrisees) > 2 else ''}) "
-            f"servent de fondation.",
-            f"**Étape 3 — Construction du parcours** : "
-            f"{nb_etapes} étape(s) ordonnées par complexité croissante.",
-            f"**Étape 4 — Planification SM-2** : Révisions espacées progressives "
-            f"(intervalles croissants si succès)."
-        ]
+        return "\n".join([
+            f"**Étape 1 — Analyse** : Score intermédiaire ({score}%), {len(lacunes)} lacune(s) sur les notions avancées.",
+            f"**Étape 2 — Prérequis** : Les notions maîtrisées ({', '.join(maitrisees[:2])}) servent de base.",
+            f"**Étape 3 — Parcours** : {nb_etapes} étape(s) ordonnées par complexité croissante.",
+            "**Étape 4 — SM-2** : Intervalles de révision progressifs, croissants si les réponses sont bonnes."
+        ])
     else:
-        lines = [
-            f"**Étape 1 — Analyse** : Score faible ({score}%) — l'étudiant est débutant.",
-            f"**Étape 2 — Stratégie** : Commencer par les fondamentaux, ne pas brûler les étapes.",
-            f"**Étape 3 — Parcours** : {nb_etapes} étape(s), du niveau 1 (facile) "
-            f"vers les niveaux supérieurs en respectant le graphe de prérequis.",
-            f"**Étape 4 — Coach Répétition** : Intervalles SM-2 courts au début "
-            f"(1 jour → 6 jours) pour ancrer les bases.",
-            f"**Conclusion** : Apprentissage progressif sans saut de niveau."
-        ]
-
-    return "\n".join(lines)
+        return "\n".join([
+            f"**Étape 1 — Analyse** : Score faible ({score}%) — profil débutant.",
+            "**Étape 2 — Stratégie** : Commencer par les fondamentaux, respecter le graphe de prérequis.",
+            f"**Étape 3 — Parcours** : {nb_etapes} étape(s) du niveau 1 vers les niveaux supérieurs.",
+            "**Étape 4 — Coach** : Intervalles SM-2 courts au début (1 jour → 6 jours) pour ancrer les bases."
+        ])
 
 
-# ══════════════════════════════════════════════════════════════
-# Test rapide
-# ══════════════════════════════════════════════════════════════
+# Raisonnement du Diagnosticien (analyse du rapport de test)
+def reason_diagnosticien(rapport: dict) -> str:
+    if LLM_PROVIDER != "fallback" and _llm_client is not None:
+        try:
+            lacunes  = ", ".join(rapport.get("lacunes", [])) or "aucune"
+            maitrise = ", ".join(rapport.get("notions_maitrisees", [])) or "aucune"
+            prompt = (
+                f"Étudiant : {rapport.get('etudiant')} | Module : {rapport.get('module')}\n"
+                f"Score : {rapport.get('pourcentage')}% ({rapport.get('score')}/{rapport.get('total')})\n"
+                f"Niveau : {rapport.get('niveau_global')}\n"
+                f"Maîtrisées : {maitrise}\nLacunes : {lacunes}\n"
+                f"Notion prioritaire : {rapport.get('notion_cible')}\n\n"
+                f"Analyse ce diagnostic en Chain-of-Thought."
+            )
+            return _call_llm(DIAGNOSTICIEN_SYSTEM_PROMPT, prompt)
+        except Exception:
+            pass
+
+    score        = rapport.get("pourcentage", 0)
+    lacunes      = rapport.get("lacunes", [])
+    maitrisees   = rapport.get("notions_maitrisees", [])
+    notion_cible = rapport.get("notion_cible", "?")
+    niveau       = rapport.get("niveau_global", "?")
+    return "\n".join([
+        f"**Étape 1 — Score** : {score}% → niveau **{niveau}**.",
+        f"**Étape 2 — Points forts** : {len(maitrisees)} notion(s) maîtrisée(s)"
+            + (f" : {', '.join(maitrisees[:3])}." if maitrisees else "."),
+        f"**Étape 3 — Lacunes** : {len(lacunes)} notion(s) à combler"
+            + (f" : {', '.join(lacunes[:3])}." if lacunes else " — aucune."),
+        f"**Étape 4 — Priorité** : Notion cible → **{notion_cible}**.",
+    ])
+
+
+# Raisonnement du Coach (justification de l'intervalle SM-2 calculé)
+def reason_coach(etudiant: str, notion: str, qualite: int, resultat_sm2: dict) -> str:
+    if LLM_PROVIDER != "fallback" and _llm_client is not None:
+        try:
+            prompt = (
+                f"Étudiant : {etudiant} | Notion : {notion}\n"
+                f"Qualité : {qualite}/5 | Intervalle calculé : {resultat_sm2.get('intervalle_jours')} jour(s)\n"
+                f"Prochaine révision : {resultat_sm2.get('prochaine_revision')}\n"
+                f"Facteur facilité (EF) : {resultat_sm2.get('facteur_facilite')} | "
+                f"Répétitions réussies : {resultat_sm2.get('repetitions')}\n\n"
+                f"Explique en Chain-of-Thought pourquoi cet intervalle est optimal."
+            )
+            return _call_llm(COACH_SYSTEM_PROMPT, prompt)
+        except Exception:
+            pass
+
+    intervalle = resultat_sm2.get("intervalle_jours", 1)
+    ef         = resultat_sm2.get("facteur_facilite", 2.5)
+    prochaine  = resultat_sm2.get("prochaine_revision", "?")
+    return "\n".join([
+        f"**Étape 1 — Qualité** : {qualite}/5 → "
+            + ("bonne maîtrise, intervalle prolongé." if qualite >= 3 else "difficulté, retour à l'intervalle minimal (1 jour)."),
+        f"**Étape 2 — Calcul SM-2** : Intervalle = **{intervalle} jour(s)**.",
+        f"**Étape 3 — Facteur facilité** : EF = {ef} "
+            + ("(stable — mémorisation efficace)." if ef >= 2.3 else "(en baisse — notion difficile pour cet étudiant)."),
+        f"**Étape 4 — Décision** : Prochaine révision planifiée au **{prochaine}**.",
+    ])
+
+
+# Raisonnement du Tracker (confirmation de la sauvegarde et impact futur)
+def reason_tracker(nom: str, notion: str, score: int) -> str:
+    if LLM_PROVIDER != "fallback" and _llm_client is not None:
+        try:
+            prompt = (
+                f"Étudiant : {nom} | Notion sauvegardée : {notion} | Score : {score}/5\n\n"
+                f"Explique ce que cette sauvegarde apporte pour les sessions futures."
+            )
+            return _call_llm(TRACKER_SYSTEM_PROMPT, prompt)
+        except Exception:
+            pass
+
+    return "\n".join([
+        f"**Étape 1 — Persistance** : Session de **{nom}** sur **{notion}** (score={score}/5) enregistrée dans `data/profils_etudiants.json`.",
+        "**Étape 2 — Mémoire long-terme** : Le Diagnosticien utilisera ce profil à la prochaine session pour ne pas repartir de zéro.",
+        "**Étape 3 — Impact** : "
+            + ("Bon score → notion marquée maîtrisée, le parcours sera allégé."
+               if score >= 3 else "Score faible → notion reste prioritaire au prochain diagnostic."),
+    ])
+
 
 if __name__ == "__main__":
     import sys
@@ -209,14 +234,10 @@ if __name__ == "__main__":
     except Exception:
         pass
 
-    print(f"Provider LLM détecté : {LLM_PROVIDER}")
-    print(f"{'LLM réel' if LLM_PROVIDER != 'fallback' else 'Mode fallback déterministe'}")
-    print()
+    print(f"Provider LLM : {LLM_PROVIDER}\n")
 
     fake_diag = {
-        "etudiant": "Yassine",
-        "module": "MSA",
-        "pourcentage": 50,
+        "etudiant": "Yassine", "module": "MSA", "pourcentage": 50,
         "notions_maitrisees": ["Agents Intelligents", "Communication Inter-agents"],
         "lacunes": ["Framework CrewAI", "Framework LangGraph"]
     }
@@ -224,6 +245,5 @@ if __name__ == "__main__":
         {"ordre": 1, "notion": "Framework CrewAI"},
         {"ordre": 2, "notion": "Framework LangGraph"}
     ]
-
-    print("--- Raisonnement Planificateur (CoT) ---")
+    print("--- Planificateur (Chain-of-Thought) ---")
     print(reason_planificateur(fake_diag, fake_parcours))
