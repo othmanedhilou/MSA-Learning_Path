@@ -47,20 +47,33 @@ class LearningState(TypedDict):
     communications:       Annotated[list, add]  # reducer add pour accumuler les messages A2A
 
 
-# Instances globales — chargées une seule fois au démarrage
-_diagnosticien = AgentDiagnostician()
-_planificateur = AgentPlanificateur()
-_pedagogue     = AgentPedagogue()
-_coach         = AgentCoach()
-_tracker       = AgentTracker()
+# Instances lazy — créées au premier appel pour ne pas charger le modèle
+# embedding en mémoire à chaque import (évite MemoryError sur machines limitées)
+_diagnosticien = None
+_planificateur = None
+_pedagogue     = None
+_coach         = None
+_tracker       = None
 
 CONVERSATION_ID = "default-session"
+
+
+def _agents():
+    """Initialise les agents au premier appel (singleton par processus)."""
+    global _diagnosticien, _planificateur, _pedagogue, _coach, _tracker
+    if _diagnosticien is None:
+        _diagnosticien = AgentDiagnostician()
+        _planificateur = AgentPlanificateur()
+        _pedagogue     = AgentPedagogue()
+        _coach         = AgentCoach()
+        _tracker       = AgentTracker()
 
 
 # Nodes LangGraph — un node par agent
 
 def diagnosticien_node(state: LearningState) -> dict:
     """Lance le test adaptatif et identifie les lacunes de l'étudiant."""
+    _agents()
     cid = (state.get("communications") or [{}])[0].get("conversation_id", CONVERSATION_ID)
 
     # Message A2A : l'orchestrateur demande au Diagnosticien de lancer le test
@@ -87,6 +100,7 @@ def diagnosticien_node(state: LearningState) -> dict:
 
 def planificateur_node(state: LearningState) -> dict:
     """Construit le parcours d'apprentissage ordonné par prérequis, avec SM-2."""
+    _agents()
     cid = state["communications"][0]["conversation_id"]
 
     req = create_a2a_msg("Orchestrateur", "Planificateur", REQUEST,
@@ -118,16 +132,16 @@ def planificateur_node(state: LearningState) -> dict:
 
 def pedagogue_node(state: LearningState) -> dict:
     """Sélectionne les ressources pédagogiques via RAG vectoriel (Chroma)."""
+    _agents()
     cid          = state["communications"][0]["conversation_id"]
     notion_cible = state["diagnostic"]["notion_cible"]
 
     req = create_a2a_msg("Orchestrateur", "Pedagogue", QUERY,
                          {"query": notion_cible}, conversation_id=cid)
 
-    # Appel via l'implémentation MCP (même fonction exposée via @mcp.tool dans learning_tools_server)
-    # Import local pour éviter le double chargement du modèle embedding au démarrage
-    from learning_tools_server import search_ressources_rag_impl
-    ressources = search_ressources_rag_impl(notion_cible, n_results=5)
+    # _pedagogue utilise la même logique que @mcp.tool search_ressources_rag dans learning_tools_server
+    # On appelle l'instance directe pour éviter de charger le modèle embedding deux fois en mémoire
+    ressources = _pedagogue.chercher_ressources(notion_cible)
 
     reply = create_a2a_msg("Pedagogue", "Orchestrateur", INFORM,
                            {"nb_ressources": len(ressources),
@@ -139,6 +153,7 @@ def pedagogue_node(state: LearningState) -> dict:
 
 def coach_node(state: LearningState) -> dict:
     """Calcule la prochaine révision avec l'algorithme SuperMemo-2."""
+    _agents()
     cid          = state["communications"][0]["conversation_id"]
     notion_cible = state["diagnostic"]["notion_cible"]
     score        = state["diagnostic"]["pourcentage"]
@@ -164,6 +179,7 @@ def coach_node(state: LearningState) -> dict:
 
 def tracker_node(state: LearningState) -> dict:
     """Persiste la session en mémoire long-terme (JSON)."""
+    _agents()
     cid    = state["communications"][0]["conversation_id"]
     notion = state["diagnostic"]["notion_cible"]
     score  = state["diagnostic"]["pourcentage"] // 20  # 0-5

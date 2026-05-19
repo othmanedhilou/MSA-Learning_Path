@@ -184,14 +184,19 @@ Commence par appeler ces outils, puis construis ton raisonnement Chain-of-Though
         return None  # appelant utilise le fallback CoT
 
 
-# Raisonnement du Planificateur — essaie ReAct d'abord, puis CoT, puis fallback
-def reason_planificateur(diagnostic: dict, parcours: list) -> str:
-    # 1. Tenter le vrai loop ReAct (Reason → Act → Observe → Answer)
-    react_result = react_planificateur(diagnostic, parcours)
-    if react_result:
-        return react_result
+# Flag ReAct — nécessite un modèle avec tool_calling natif (ex: GPT-4, Claude)
+# Mettre à True si le modèle supporte les function calls (OpenRouter peut ne pas les supporter)
+REACT_ENABLED = False
 
-    # 2. CoT simple si ReAct échoue (ex: modèle ne supporte pas tool_calls)
+# Raisonnement du Planificateur — ReAct si activé, sinon CoT, sinon fallback
+def reason_planificateur(diagnostic: dict, parcours: list) -> str:
+    # 1. Loop ReAct (Reason → Act → Observe → Answer) — activé si REACT_ENABLED=True
+    if REACT_ENABLED:
+        react_result = react_planificateur(diagnostic, parcours)
+        if react_result:
+            return react_result
+
+    # 2. CoT simple (Zero-shot + Few-shot examples dans le prompt)
     if LLM_PROVIDER != "fallback" and _llm_client is not None:
         try:
             lacunes  = ", ".join(diagnostic.get("lacunes", [])) or "aucune"

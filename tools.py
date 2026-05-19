@@ -1,16 +1,49 @@
-# Body Layer — outils LangChain (@tool) exposés aux agents
-# Le LLM les appelle via bind_tools() selon le pattern ReAct (Reason + Act)
+# Body Layer — outils LangChain (@tool) exposés aux agents via bind_tools()
+# Le LLM les appelle dans le loop ReAct (Reason → Act → Observe → Answer)
+#
+# Instances lazy : les agents sont créés au premier appel, pas à l'import.
+# Cela évite de charger deux fois le modèle embedding en mémoire quand
+# tools.py est importé depuis mind_layer.py pendant qu'orchestrator.py
+# a déjà instancié ses propres agents.
 from langchain_core.tools import tool
 
 from agent_pedagogue import AgentPedagogue
-from agent_coach import AgentCoach
-from agent_tracker import AgentTracker
-from diagnostician import AgentDiagnostician
+from agent_coach     import AgentCoach
+from agent_tracker   import AgentTracker
+from diagnostician   import AgentDiagnostician
 
-_pedagogue     = AgentPedagogue()
-_coach         = AgentCoach()
-_tracker       = AgentTracker()
-_diagnosticien = AgentDiagnostician()
+_pedagogue     = None
+_coach         = None
+_tracker       = None
+_diagnosticien = None
+
+
+def _get_pedagogue():
+    global _pedagogue
+    if _pedagogue is None:
+        _pedagogue = AgentPedagogue()
+    return _pedagogue
+
+
+def _get_coach():
+    global _coach
+    if _coach is None:
+        _coach = AgentCoach()
+    return _coach
+
+
+def _get_tracker():
+    global _tracker
+    if _tracker is None:
+        _tracker = AgentTracker()
+    return _tracker
+
+
+def _get_diagnosticien():
+    global _diagnosticien
+    if _diagnosticien is None:
+        _diagnosticien = AgentDiagnostician()
+    return _diagnosticien
 
 
 @tool
@@ -21,8 +54,8 @@ def outil_diagnostic(module: str, score_initial: int) -> dict:
         module: MSA, Data Mining, Deep Learning, Data Warehouse ou Big Data
         score_initial: estimation du niveau en pourcentage (0-100)
     """
-    profil = {"nom": "Etudiant", "score_initial": score_initial, "historique": []}
-    rapport = _diagnosticien.run_diagnostic_for_profile(module, profil)
+    profil  = {"nom": "Etudiant", "score_initial": score_initial, "historique": []}
+    rapport = _get_diagnosticien().run_diagnostic_for_profile(module, profil)
     return rapport or {"erreur": f"Module '{module}' introuvable."}
 
 
@@ -35,7 +68,7 @@ def outil_rag_ressources(notion: str, n_resultats: int = 3) -> list:
         notion: concept à rechercher (ex: "LangGraph", "K-Means Clustering")
         n_resultats: nombre de résultats à retourner
     """
-    return _pedagogue.chercher_ressources(notion)[:n_resultats]
+    return _get_pedagogue().chercher_ressources(notion)[:n_resultats]
 
 
 @tool
@@ -47,7 +80,7 @@ def outil_sm2_revision(etudiant: str, notion: str, qualite: int) -> dict:
         notion: concept à réviser
         qualite: qualité de réponse de 0 (oublié) à 5 (parfait)
     """
-    return _coach.calculer_revision(etudiant, notion, qualite)
+    return _get_coach().calculer_revision(etudiant, notion, qualite)
 
 
 @tool
@@ -59,7 +92,7 @@ def outil_tracker_sauver(nom: str, notion: str, score: int) -> str:
         notion: notion travaillée
         score: score de qualité SM-2 (0-5)
     """
-    return _tracker.sauver_progres(nom, notion, score)
+    return _get_tracker().sauver_progres(nom, notion, score)
 
 
 TOUS_LES_OUTILS = [
