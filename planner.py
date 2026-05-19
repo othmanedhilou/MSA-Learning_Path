@@ -1,10 +1,5 @@
-"""
-Agent Planificateur — ReAct + Chain-of-Thought
-Construit un parcours d'apprentissage ordonné selon :
-  - les pré-requis (prerequis.json)
-  - les lacunes détectées par le Diagnosticien
-  - l'algorithme SM-2 pour planifier les révisions
-"""
+# Agent Planificateur — construit le parcours d'apprentissage en respectant les prérequis
+# Utilise SM-2 pour planifier les dates de session et estimer les durées
 import json
 import os
 from datetime import datetime, timedelta
@@ -30,15 +25,7 @@ class AgentPlanificateur:
         return 0
 
     def construire_parcours(self, module, lacunes, notions_maitrisees, nom_etudiant="Etudiant"):
-        """
-        Chain-of-Thought :
-        1. Identifier les notions non maîtrisées
-        2. Respecter l'ordre des pré-requis
-        3. Planifier avec SM-2
-        4. Estimer la durée
-
-        Retourne un parcours complet avec planning.
-        """
+        """Construit le parcours ordonné par prérequis avec planning SM-2 et durées estimées."""
         print(f"\n{'='*55}")
         print(f"  AGENT PLANIFICATEUR — {module}")
         print(f"  Etudiant : {nom_etudiant}")
@@ -46,7 +33,7 @@ class AgentPlanificateur:
 
         toutes_notions = self._get_notions(module)
 
-        # Etape 1 : identifier ce qui reste à apprendre
+        # Étape 1 : identifier les notions non maîtrisées dans l'ordre des prérequis
         print("\n  [1] Analyse des pré-requis...")
         a_apprendre = []
         for notion_info in toutes_notions:

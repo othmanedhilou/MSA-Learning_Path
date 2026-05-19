@@ -1,8 +1,6 @@
-"""
-Algorithme SM-2 (SuperMemo 2) — Répétition Espacée
-Calcule l'intervalle optimal avant la prochaine révision
-selon la qualité de la réponse (0 à 5).
-"""
+# Algorithme SuperMemo-2 (SM-2) — répétition espacée
+# Calcule l'intervalle optimal avant la prochaine révision selon la qualité de réponse (0-5)
+# Même algorithme que celui utilisé par Anki
 import json
 import os
 from datetime import datetime, timedelta

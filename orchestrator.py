@@ -19,13 +19,13 @@ except ImportError:
     def add_messages(left, right):
         return (left or []) + (right or [])
 
-from diagnostician  import AgentDiagnostician
-from planner        import AgentPlanificateur
+from diagnostician   import AgentDiagnostician
+from planner         import AgentPlanificateur
 from agent_pedagogue import AgentPedagogue
 from agent_coach     import AgentCoach
 from agent_tracker   import AgentTracker
-from a2a_protocol   import create_a2a_msg, format_timeline_text, REQUEST, INFORM, QUERY, CONFIRM
-from mind_layer     import reason_planificateur, LLM_PROVIDER
+from a2a_protocol    import create_a2a_msg, format_timeline_text, REQUEST, INFORM, QUERY, CONFIRM
+from mind_layer      import reason_planificateur, LLM_PROVIDER
 
 
 # État partagé entre tous les agents — pattern Blackboard de LangGraph
@@ -124,7 +124,10 @@ def pedagogue_node(state: LearningState) -> dict:
     req = create_a2a_msg("Orchestrateur", "Pedagogue", QUERY,
                          {"query": notion_cible}, conversation_id=cid)
 
-    ressources = _pedagogue.chercher_ressources(notion_cible)
+    # Appel via l'implémentation MCP (même fonction exposée via @mcp.tool dans learning_tools_server)
+    # Import local pour éviter le double chargement du modèle embedding au démarrage
+    from learning_tools_server import search_ressources_rag_impl
+    ressources = search_ressources_rag_impl(notion_cible, n_results=5)
 
     reply = create_a2a_msg("Pedagogue", "Orchestrateur", INFORM,
                            {"nb_ressources": len(ressources),
@@ -188,10 +191,9 @@ def tracker_node(state: LearningState) -> dict:
                 profils = json.load(f)
         except Exception:
             profils = {}
-    profils[state["nom_etudiant"]] = saved
-    os.makedirs(os.path.dirname(profils_path), exist_ok=True)
-    with open(profils_path, 'w', encoding='utf-8') as f:
-        json.dump(profils, f, ensure_ascii=False, indent=2)
+    # Persistance via l'implémentation MCP (même fonction exposée via @mcp.tool dans learning_tools_server)
+    from learning_tools_server import update_profile_ltm_impl
+    update_profile_ltm_impl(state["nom_etudiant"], saved)
 
     reply = create_a2a_msg("Tracker", "Orchestrateur", CONFIRM,
                            {"status": "saved", "path": "data/profils_etudiants.json"},

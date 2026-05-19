@@ -15,19 +15,35 @@ except ImportError:
     MCP_AVAILABLE = False
     print("[WARN] mcp non installé. Lance : pip install mcp")
 
-_rag = RAGEngine()
-_sm2 = SM2()
-
 BASE_DIR      = os.path.dirname(os.path.abspath(__file__))
 PROFILES_PATH = os.path.join(BASE_DIR, 'data', 'profils_etudiants.json')
 
+# Instances lazy — créées seulement au premier appel pour éviter le double chargement
+# du modèle embedding quand le module est importé par l'orchestrateur
+_rag = None
+_sm2 = None
+
+
+def _get_rag():
+    global _rag
+    if _rag is None:
+        _rag = RAGEngine()
+    return _rag
+
+
+def _get_sm2():
+    global _sm2
+    if _sm2 is None:
+        _sm2 = SM2()
+    return _sm2
+
 
 def search_ressources_rag_impl(query: str, n_results: int = 3) -> list:
-    return _rag.chercher_ressources(query)[:n_results]
+    return _get_rag().chercher_ressources(query)[:n_results]
 
 
 def compute_sm2_schedule_impl(etudiant: str, notion: str, qualite: int) -> dict:
-    return _sm2.calculer(etudiant, notion, qualite)
+    return _get_sm2().calculer(etudiant, notion, qualite)
 
 
 def update_profile_ltm_impl(etudiant: str, updates: dict) -> dict:
@@ -70,7 +86,7 @@ if MCP_AVAILABLE:
             notion: concept name
             qualite: response quality 0-5 (0=forgot, 5=perfect)
         """
-        return compute_sm2_schedule_impl(etudiant, notion, qualite)
+        return _get_sm2().calculer(etudiant, notion, qualite)
 
     @mcp.tool()
     def update_profile_ltm(etudiant: str, updates: dict) -> dict:

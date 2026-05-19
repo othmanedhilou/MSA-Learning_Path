@@ -1,27 +1,9 @@
-"""
-Moteur RAG vectoriel — Chroma + Embeddings + Chunking
-══════════════════════════════════════════════════════
-
-Référence cours :
-  • Chapitre 2 — RAG (Chunking + Embeddings + Self-Attention)
-  • Chunking récursif (paragraphes → lignes → phrases → mots)
-  • Embedding modèle : multilingual-e5-small (384 dim, gratuit, local, multilingue)
-  • Vectorstore : Chroma (persistant, métadonnées)
-  • Métrique : similarité cosine
-
-Conforme à l'exigence du sujet :
-  « RAG : au moins un agent doit interroger une base de connaissances VECTORIELLE »
-
-Fallback gracieux : si les dépendances ne sont pas installées, retombe sur
-la recherche par mot-clé (compatibilité avec le code initial de Dodo).
-"""
+# Moteur RAG vectoriel — Chroma + RecursiveCharacterTextSplitter + embeddings multilingues
+# Fallback automatique sur recherche par mot-clé si les dépendances ne sont pas installées.
 import os
 import json
 from typing import List, Dict, Optional
 
-# ──────────────────────────────────────────────────────────────
-# Imports avec fallback
-# ──────────────────────────────────────────────────────────────
 VECTOR_RAG_AVAILABLE = False
 try:
     from langchain_chroma import Chroma
@@ -36,19 +18,11 @@ except ImportError as e:
     print(f"[RAG] Mode dégradé (keyword) - install: pip install langchain-chroma langchain-huggingface sentence-transformers")
 
 
-# ══════════════════════════════════════════════════════════════
-# CLASSE RAGEngine — interface unique, deux implémentations
-# ══════════════════════════════════════════════════════════════
-
 class RAGEngine:
     """Moteur RAG hybride : vectoriel (Chroma) avec fallback keyword.
 
-    Architecture :
-      1. Au démarrage, on charge ressources.json + textes .txt dans data/ressources_textes/
-      2. Chunking récursif sur les textes (Chapitre 2 du cours)
-      3. Embedding via multilingual-e5-small (384 dim)
-      4. Indexation dans Chroma (persistance dans data/chroma_db/)
-      5. À la query : similarité cosine + retour des top-K
+    Au démarrage : charge ressources.json + .txt → chunking récursif →
+    embeddings 384 dim → indexation Chroma. À la query : similarité cosine top-K.
     """
 
     def __init__(self, persist_dir: Optional[str] = None):
@@ -68,17 +42,16 @@ class RAGEngine:
                 print(f"[RAG] Erreur init vectoriel : {e}. Bascule en mode keyword.")
                 self.vector_mode = False
 
-    # ─── Initialisation du vector store ──────────────────────
     def _init_vector_store(self):
         """Charge les ressources, chunke, embedde, indexe dans Chroma."""
-        # 1. Modèle d'embedding (gratuit, local, multilingue)
+        # Modèle d'embedding gratuit, local, multilingue — tourne sur CPU
         self.embeddings = HuggingFaceEmbeddings(
             model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
             model_kwargs={"device": "cpu"},
             encode_kwargs={"normalize_embeddings": True}
         )
 
-        # 2. Si déjà indexé, on recharge
+        # Si déjà indexé, on recharge depuis le disque
         if os.path.exists(self.persist_dir) and os.listdir(self.persist_dir):
             self.vectorstore = Chroma(
                 persist_directory=self.persist_dir,
@@ -87,12 +60,12 @@ class RAGEngine:
             )
             return
 
-        # 3. Sinon, indexation initiale
+        # Première fois : chunking récursif → embeddings → indexation Chroma
         docs = self._load_documents()
         if not docs:
             raise RuntimeError("Aucun document à indexer")
 
-        # 4. Chunking récursif (Chapitre 2 — méthode recommandée)
+        # RecursiveCharacterTextSplitter : découpe paragraphes → lignes → phrases → mots
         splitter = RecursiveCharacterTextSplitter(
             chunk_size=300,
             chunk_overlap=50,
@@ -100,7 +73,6 @@ class RAGEngine:
         )
         chunks = splitter.split_documents(docs)
 
-        # 5. Création du vectorstore (1 vecteur par chunk)
         self.vectorstore = Chroma.from_documents(
             documents=chunks,
             embedding=self.embeddings,
@@ -109,7 +81,7 @@ class RAGEngine:
         )
 
     def _load_documents(self) -> List["Document"]:
-        """Charge ressources.json + fichiers texte en Documents LangChain."""
+        """Charge ressources.json + fichiers .txt en Documents LangChain."""
         docs = []
 
         # Source 1 : catalogue JSON (descriptions courtes + URLs)
@@ -159,22 +131,8 @@ class RAGEngine:
 
         return docs
 
-    # ═══════════════════════════════════════════════════════════
-    # API PUBLIQUE
-    # ═══════════════════════════════════════════════════════════
-
-    def search(self, query: str, k: int = 3,
-               module: Optional[str] = None) -> List[Dict]:
-        """Recherche sémantique vectorielle (cosine similarity).
-
-        Args:
-            query: requête utilisateur (notion cherchée)
-            k: nombre de résultats à retourner
-            module: filtrage optionnel par module (metadata)
-
-        Returns:
-            Liste de dicts {type, notion, contenu, source, url, score}
-        """
+    def search(self, query: str, k: int = 3, module: Optional[str] = None) -> List[Dict]:
+        """Recherche sémantique vectorielle (similarité cosine) — fallback keyword si Chroma absent."""
         if self.vector_mode and self.vectorstore:
             return self._search_vector(query, k, module)
         return self._search_keyword(query, k)
@@ -252,15 +210,8 @@ class RAGEngine:
                         })
         return resultats[:k]
 
-    # ─── Compatibilité avec code existant (Dodo) ──────────────
     def chercher_ressources(self, notion_cible: str) -> List[Dict]:
-        """Alias rétro-compatible avec l'ancienne API de Dodo."""
         return self.search(notion_cible, k=5)
-
-
-# ══════════════════════════════════════════════════════════════
-# CLI — test rapide
-# ══════════════════════════════════════════════════════════════
 
 if __name__ == "__main__":
     import sys

@@ -1,9 +1,5 @@
-"""
-Tests unitaires de l'orchestrateur.
-Lancer : pytest tests/ -v
-
-Tâche O6 — bonus qualité code, rare dans les projets étudiants.
-"""
+# Tests unitaires — pytest tests/ -v
+# Couvre : conditional edge, protocole A2A, sessions d'intégration, isolation des nodes
 import os
 import sys
 import json
@@ -27,8 +23,6 @@ from a2a_protocol import create_a2a_msg, REQUEST, INFORM
 # ═══════════════════════════════════════════════════════════════
 
 class TestConditionalEdge:
-    """La conditional edge est la valeur ajoutée majeure de LangGraph.
-    Si elle échoue, la démo échoue."""
 
     def test_avance_route_vers_coach(self):
         """Score >= 80% doit router vers coach (skip planificateur)."""
@@ -146,7 +140,6 @@ class TestSessionsIntegration:
 # ═══════════════════════════════════════════════════════════════
 
 class TestNodesIsolation:
-    """Tester chaque node isolément (principe SMA : chaque agent autonome)."""
 
     def test_diagnosticien_node_retourne_diagnostic(self, profils):
         state = {

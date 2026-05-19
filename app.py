@@ -24,6 +24,9 @@ from orchestrator import run_session, LANGGRAPH_AVAILABLE
 from a2a_protocol import format_timeline_html
 from mind_layer import LLM_PROVIDER
 from rag_engine import VECTOR_RAG_AVAILABLE
+from diagnostician import AgentDiagnostician
+
+_diagnosticien = AgentDiagnostician()
 
 # ──────────────────────────────────────────────────────────────
 # CONFIGURATION PAGE
@@ -91,6 +94,20 @@ if 'selected_module' not in st.session_state:
 if 'session_result' not in st.session_state:
     st.session_state.session_result = None
 
+# État du quiz interactif
+if 'quiz_nom' not in st.session_state:
+    st.session_state.quiz_nom = ""
+if 'quiz_notions' not in st.session_state:
+    st.session_state.quiz_notions = []
+if 'quiz_index' not in st.session_state:
+    st.session_state.quiz_index = 0
+if 'quiz_niveau' not in st.session_state:
+    st.session_state.quiz_niveau = "facile"
+if 'quiz_answers' not in st.session_state:
+    st.session_state.quiz_answers = {}
+if 'quiz_feedback' not in st.session_state:
+    st.session_state.quiz_feedback = None  # {"correct": bool, "bonne_reponse": str, "reponse_choisie": str}
+
 
 # ──────────────────────────────────────────────────────────────
 # SIDEBAR
@@ -105,9 +122,17 @@ with st.sidebar:
     if st.session_state.selected_profile:
         p = st.session_state.selected_profile
         st.success(f"👤 **{p['nom']}**")
-        st.caption(p['description'])
-        st.write(f"📊 Score initial : **{p['score_initial']}%**")
+        if p.get('description'):
+            st.caption(p['description'])
+        st.write(f"📊 Score : **{p.get('score_initial', '?')}%**")
         st.write(f"📚 Module : **{st.session_state.selected_module}**")
+    elif st.session_state.phase == "QUIZ":
+        st.info(f"🎯 Quiz en cours — **{st.session_state.quiz_nom}**")
+        st.caption(f"Module : {st.session_state.selected_module}")
+        total = len(st.session_state.quiz_notions)
+        current = st.session_state.quiz_index
+        if total > 0:
+            st.progress(current / total, text=f"Question {current}/{total}")
     else:
         st.info("⬅️ Choisissez un profil pour commencer")
 
@@ -197,6 +222,40 @@ if st.session_state.phase == "ACCUEIL":
     except Exception as e:
         st.error(f"Erreur de chargement des profils : {e}")
 
+    # Carte "Mon profil" — quiz interactif réel
+    st.markdown("---")
+    st.subheader("🎯 Ou passez le vrai test vous-même")
+    st.caption("Le Diagnosticien vous pose de vraies questions et adapte la difficulté selon vos réponses.")
+
+    col_form, col_info = st.columns([2, 1])
+    with col_form:
+        nom_input = st.text_input("Votre prénom", placeholder="Ex: Othmane", key="nom_input_field")
+        if st.button("🚀 Démarrer mon quiz adaptatif", type="primary"):
+            nom = nom_input.strip()
+            if not nom:
+                st.error("Entrez votre prénom pour commencer.")
+            else:
+                notions = _diagnosticien._get_notions(st.session_state.selected_module)
+                if not notions:
+                    st.error(f"Aucune notion disponible pour le module {st.session_state.selected_module}.")
+                else:
+                    st.session_state.quiz_nom      = nom
+                    st.session_state.quiz_notions  = notions
+                    st.session_state.quiz_index    = 0
+                    st.session_state.quiz_niveau   = "facile"
+                    st.session_state.quiz_answers  = {}
+                    st.session_state.quiz_feedback = None
+                    st.session_state.phase         = "QUIZ"
+                    st.rerun()
+
+    with col_info:
+        st.markdown("""
+        **Comment ça marche :**
+        - Bonne réponse → question plus difficile
+        - Mauvaise réponse → retour au niveau facile
+        - À la fin → parcours 100% personnalisé
+        """)
+
     # Architecture preview
     with st.expander("🔍 Aperçu de l'architecture du système"):
         st.code("""
@@ -238,7 +297,117 @@ if st.session_state.phase == "ACCUEIL":
 
 
 # ══════════════════════════════════════════════════════════════
-# PHASE 2 : DIAGNOSTIC (orchestration en cours)
+# PHASE 2 : QUIZ INTERACTIF — test adaptatif réel
+# ══════════════════════════════════════════════════════════════
+elif st.session_state.phase == "QUIZ":
+    notions  = st.session_state.quiz_notions
+    index    = st.session_state.quiz_index
+    nom      = st.session_state.quiz_nom
+    module   = st.session_state.selected_module
+    niveaux  = ["facile", "moyen", "difficile"]
+
+    # Toutes les notions ont été répondues → lancer le diagnostic réel
+    if index >= len(notions):
+        rapport = _diagnosticien.run_diagnostic_with_answers(
+            module, nom, st.session_state.quiz_answers
+        )
+        # Construire un profil à partir des résultats pour l'orchestrateur
+        historique = [
+            {"notion": n, "maitrise": n in rapport["notions_maitrisees"]}
+            for n in rapport["notions_maitrisees"] + rapport["lacunes"]
+        ]
+        profile = {
+            "nom":           nom,
+            "score_initial": rapport["pourcentage"],
+            "historique":    historique,
+            "description":   f"Profil personnalisé — quiz {module}"
+        }
+        st.session_state.selected_profile = profile
+        st.session_state.phase = "DIAGNOSTIC"
+        st.rerun()
+
+    notion_info  = notions[index]
+    notion_label = notion_info["label"]
+    niveau       = st.session_state.quiz_niveau
+    question     = _diagnosticien._get_questions(module, notion_label, niveau) \
+                   or _diagnosticien._get_questions(module, notion_label, "facile")
+
+    # Header du quiz
+    st.subheader(f"🎯 Quiz adaptatif — {nom}")
+    st.caption(f"Module : **{module}**")
+
+    # Barre de progression
+    st.progress((index) / len(notions),
+                text=f"Notion {index + 1} / {len(notions)} — {notion_label}")
+
+    st.markdown("---")
+
+    if not question:
+        # Pas de question disponible pour cette notion → on passe
+        st.warning(f"Pas de question disponible pour « {notion_label} », notion ignorée.")
+        st.session_state.quiz_answers[notion_label] = -1
+        st.session_state.quiz_index += 1
+        st.rerun()
+
+    # Affichage du feedback de la question précédente
+    if st.session_state.quiz_feedback:
+        fb = st.session_state.quiz_feedback
+        if fb["correct"]:
+            st.success(f"✅ Correct ! — niveau monte à **{niveau}**")
+        else:
+            st.error(f"❌ Incorrect — bonne réponse : **{fb['bonne_reponse']}**")
+        st.session_state.quiz_feedback = None
+
+    # Affichage de la question
+    col_q, col_level = st.columns([4, 1])
+    with col_q:
+        st.markdown(f"### {question['question']}")
+    with col_level:
+        niveau_colors = {"facile": "#15803d", "moyen": "#d97706", "difficile": "#dc2626"}
+        st.markdown(
+            f'<span style="background:{niveau_colors[niveau]};color:white;'
+            f'padding:4px 12px;border-radius:12px;font-size:0.8rem;font-weight:bold;">'
+            f'{niveau.upper()}</span>',
+            unsafe_allow_html=True
+        )
+
+    st.markdown("")
+
+    # Boutons de réponse
+    for i, option in enumerate(question["options"]):
+        if st.button(f"{'ABCD'[i]}. {option}", key=f"opt_{index}_{i}"):
+            correct = (i == question["reponse"])
+
+            # Enregistrer la réponse
+            st.session_state.quiz_answers[notion_label] = i
+
+            # Adapter la difficulté
+            if correct:
+                idx_niv = niveaux.index(niveau)
+                new_niveau = niveaux[min(idx_niv + 1, len(niveaux) - 1)]
+            else:
+                new_niveau = "facile"
+
+            # Préparer le feedback
+            st.session_state.quiz_feedback = {
+                "correct":        correct,
+                "bonne_reponse":  question["options"][question["reponse"]],
+                "reponse_choisie": option
+            }
+
+            st.session_state.quiz_niveau = new_niveau
+            st.session_state.quiz_index  = index + 1
+            st.rerun()
+
+    st.markdown("---")
+    if st.button("⏭️ Passer cette question"):
+        st.session_state.quiz_answers[notion_label] = -1
+        st.session_state.quiz_index += 1
+        st.rerun()
+
+
+# ══════════════════════════════════════════════════════════════
+# PHASE 3 : DIAGNOSTIC (orchestration en cours)
 # ══════════════════════════════════════════════════════════════
 elif st.session_state.phase == "DIAGNOSTIC":
     p = st.session_state.selected_profile

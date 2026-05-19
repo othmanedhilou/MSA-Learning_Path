@@ -42,9 +42,21 @@
         "prochaine_revision": "2026-05-20"
     },
     "Sarah::Framework LangGraph": {
-        "intervalle": 2362,
-        "repetitions": 8,
-        "facilite": 3.06,
-        "prochaine_revision": "2032-11-05"
+        "intervalle": 74458,
+        "repetitions": 11,
+        "facilite": 3.36,
+        "prochaine_revision": "2230-03-29"
+    },
+    "othmane::LangGraph": {
+        "intervalle": 16,
+        "repetitions": 3,
+        "facilite": 2.7,
+        "prochaine_revision": "2026-06-04"
+    },
+    "othmane::K-Means": {
+        "intervalle": 1,
+        "repetitions": 0,
+        "facilite": 1.86,
+        "prochaine_revision": "2026-05-20"
     }
 }

@@ -16,7 +16,7 @@
     },
     {
         "etudiant": "Dodo",
-        "notion": "R\u00e9seaux Convolutifs (CNN)",
+        "notion": "Réseaux Convolutifs (CNN)",
         "score": 3
     },
     {
@@ -208,5 +208,85 @@
         "etudiant": "Amina",
         "notion": "Agents Intelligents",
         "score": 0
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
     }
 ]

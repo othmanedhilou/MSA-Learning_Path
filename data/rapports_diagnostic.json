@@ -570,5 +570,352 @@
         ],
         "notion_cible": "Agents Intelligents",
         "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 50 % (2 bonnes réponses sur 4) indique que l’étudiant possède les bases du module MSA mais ne les applique pas de façon fiable. Le niveau « intermédiaire » est donc plutôt « intermédiaire faible » : il maîtrise les concepts théoriques (Agents intelligents, communication inter‑agents) mais montre des difficultés concrètes sur les outils pratiques.\n\n2️⃣ **Identification du pattern de lacunes** – Les deux points faibles portent exclusivement sur les *frameworks* (CrewAI et LangGraph). Ce sont des compétences **appliquées / techniques** qui requièrent la mise en place d’architectures, la configuration d’API et la compréhension de la chaîne de prompts. Ainsi, la lacune est **avancée** (mise en pratique) plutôt que fondamentale (concepts de base).\n\n3️⃣ **Conclusion sur le niveau réel** – Le profil de Yassine se situe entre « intermédiaire » et « avancé » : il possède les connaissances de base mais ne les traduit pas encore en implémentations concrètes. Son niveau réel est donc **intermédiaire‑avancé avec une faiblesse technique ciblée**.\n\n4️⃣ **Notion prioritaire à travailler** – Le diagnostic recommande le **framework CrewAI**. C’est la bonne priorité : CrewAI regroupe plusieurs sous‑compétences (définition de rôles, orchestration de tâches, gestion du contexte) qui, une fois maîtrisées, faciliteront également l’apprentissage de LangGraph. Travailler d’abord sur CrewAI permettra à Yassine de consolider la logique d’orchestration d’agents avant de passer à la programmation de graphes de flux plus abstraite.  \n\n**Synthèse** : Yassine doit renforcer ses compétences d’implémentation de frameworks (CrewAI en priorité) afin de passer d’un niveau intermédiaire théorique à un niveau réellement opérationnel dans le module MSA."
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Constat du score** – Amina a obtenu 0 % (0/4) au test adaptatif du module MSA, ce qui confirme le niveau « débutant » indiqué. Aucun des items évalués n’a été validé, donc aucune notion n’est encore maîtrisée.  \n\n2️⃣ **Identification du pattern de lacunes** – Les quatre notions manquantes sont toutes *fondamentales* au sein du module :  \n- **Agents Intelligents** (concept de base, rôle et architecture)  \n- **Communication Inter‑agents** (mécanismes de messagerie, protocoles)  \n- **Framework CrewAI** (outil d’orchestration d’agents)  \n- **Framework LangGraph** (framework de graphes de prompts).  \n\nL’absence de maîtrise de ces concepts montre que la difficulté se situe au niveau des *pré‑requis* du cours, avant même d’aborder des notions plus avancées (planification, méta‑apprentissage, etc.).  \n\n3️⃣ **Conclusion sur le niveau réel** – Le niveau réel d’Amina est **inférieur au niveau débutant attendu** : elle ne possède aucune des bases nécessaires pour progresser dans le module MSA. Elle doit d’abord acquérir les concepts fondamentaux d’agents intelligents et leurs interactions.  \n\n4️⃣ **Notion prioritaire à travailler** – **Agents Intelligents** est la notion la plus prioritaire.  \n   - *Pourquoi ?* C’est le socle conceptuel qui sous-tend la communication inter‑agents et l’utilisation des frameworks CrewAI et LangGraph. Sans comprendre ce qu’est un agent, ses composants (perception, raisonnement, action) et son cycle de vie, il sera impossible de saisir comment les agents échangent des messages ou comment les frameworks les orchestrent.  \n\n**Recommandation** – Commencer par une ressource d’introduction aux agents intelligents (définitions, architectures simples, exemples concrets), puis enchaîner rapidement sur la communication inter‑agents avant de passer aux frameworks spécifiques."
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 0 % (0/4) indique que l’étudiante n’a pas validé les questions de base du test adaptatif. Le niveau déclaré « Débutant » correspond donc à une maîtrise réellement nulle des concepts évalués.  \n\n2️⃣ **Identification du pattern de lacunes** – Les quatre notions signalées (Agents Intelligents, Communication Inter‑agents, Framework CrewAI, Framework LangGraph) sont toutes **fondamentales** pour le module MSA : elles constituent le socle théorique (qu’est‑ce qu’un agent, comment les agents échangent) et les outils pratiques (les deux frameworks les plus utilisés). L’absence totale de connaissances sur ces points montre une lacune de base, pas seulement un manque d’approfondissement.  \n\n3️⃣ **Conclusion sur le niveau réel** – Au‑delà du libellé « Débutant », le niveau réel d’Amina se situe **au‑dessous du niveau débutant** : elle ne possède aucune notion de ce que sont les agents intelligents ni des mécanismes de communication, et ne connaît aucun des cadres de travail indispensables.  \n\n4️⃣ **Notion prioritaire à travailler** – La priorité doit être **« Agents Intelligents »**. C’est le concept central qui sous‑tend la communication inter‑agents et l’utilisation des frameworks CrewAI et LangGraph. Sans une compréhension claire de ce qu’est un agent (perception, action, autonomie, environnement), il sera impossible de saisir comment les agents interagissent ou comment les frameworks les implémentent.  \n\n**En résumé** : Amina présente des lacunes fondamentales. Le premier pas consiste à lui fournir une introduction solide aux agents intelligents (définitions, architecture, exemples simples), avant de passer à la communication inter‑agents et aux frameworks spécifiques."
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 4,
+        "total": 4,
+        "pourcentage": 100,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "lacunes": [],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Avancé",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Vérification des données** – Le test adaptatif indique un score parfait (100 %) sur 4 questions, classé « Avancé ». Aucun écart n’a été relevé entre les notions évaluées et les réponses de l’étudiante.  \n\n2️⃣ **Identification du type de lacune** – Puisqu’aucune lacune n’est signalée, il n’y a pas de pattern de difficultés fondamentales (concepts de base) ni de points faibles avancés. Le profil montre une maîtrise complète des quatre notions listées.  \n\n3️⃣ **Évaluation du niveau réel** – Un score de 100 % sur un test de niveau avancé confirme que Sarah possède déjà une compréhension solide et opérationnelle des agents intelligents, de la communication inter‑agents, ainsi que des deux frameworks (CrewAI et LangGraph). Son niveau réel peut donc être considéré comme **maîtrise avancée** voire **expert** sur le périmètre testé.  \n\n4️⃣ **Choix de la notion prioritaire** – Même en l’absence de lacune, le système recommande de consolider la notion « Framework LangGraph ». Cette recommandation vise à **renforcer la profondeur d’expertise** (ex. : optimisation de prompts, création de graphes complexes, intégration multi‑modalités) afin de préparer Sarah à des scénarios plus exigeants où la simple maîtrise de base ne suffit plus.  \n\n**Conclusion**  \n- **Pattern de lacunes** : aucune (maîtrise complète).  \n- **Niveau réel** : Avancé/Expert.  \n- **Notion prioritaire** : *Framework LangGraph*, pour pousser la compétence vers une expertise de haut niveau et anticiper des besoins futurs plus complexes."
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 50 % (2 bonnes réponses sur 4) indique que l’étudiant possède des bases solides sur certains concepts (agents intelligents, communication inter‑agents) mais échoue sur les deux questions portant sur les frameworks. Le niveau « intermédiaire » déclaré par le test est donc partiellement confirmé : il maîtrise les notions fondamentales mais montre des lacunes importantes au niveau de l’application pratique des outils modernes.\n\n2️⃣ **Identification du pattern de lacune** – Les deux points faibles concernent **des frameworks spécifiques (CrewAI, LangGraph)**, qui sont des outils avancés d’orchestration et de gestion de flux de travail d’agents. Cette catégorie de lacunes relève donc du **niveau avancé / applicatif** plutôt que d’un manque de compréhension théorique de base.\n\n3️⃣ **Conclusion sur le niveau réel** – Le profil de Yassine se situe à la frontière entre intermédiaire et avancé : il possède les concepts fondamentaux, mais son incapacité à manipuler les frameworks le bloque pour progresser vers une maîtrise complète du module MSA. On peut donc le qualifier d’**«intermédiaire avec lacunes avancées»**.\n\n4️⃣ **Notion prioritaire à travailler** – La priorité doit être donnée au **framework CrewAI** (déjà indiqué). CrewAI est le point d’entrée pour créer, configurer et exécuter des agents en chaîne, et il sert de base pour comprendre ensuite LangGraph. Renforcer cette compétence permettra à Yassine de :\n\n- Mettre en pratique les notions d’agents intelligents déjà maîtrisées.  \n- Acquérir les compétences d’orchestration nécessaires pour les projets plus complexes du module.  \n\n**Recommandation** : démarrer par des exercices guidés sur CrewAI (installation, création d’un agent simple, gestion du contexte) avant de passer à LangGraph. Cela comblera la lacune avancée et consolidera le niveau intermédiaire déjà acquis."
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Constat du score** – Amina a obtenu 0 % (0/4) au test adaptatif du module MSA, ce qui place son niveau réel bien en dessous du niveau « débutant » affiché. Aucun des items évalués n’a été validé, ce qui indique une maîtrise nulle des concepts de base du module.  \n\n2️⃣ **Identification du pattern de lacunes** – Les quatre notions signalées (Agents Intelligents, Communication Inter‑agents, Framework CrewAI, Framework LangGraph) sont toutes **fondamentales** pour comprendre le fonctionnement d’un système multi‑agents. Elles constituent le socle théorique et pratique : définition d’un agent, mécanismes de coordination, et les deux principaux frameworks d’implémentation. L’absence totale de connaissances sur ces points montre que la lacune est **structurelle** plutôt que « avancée ».  \n\n3️⃣ **Conclusion sur le niveau réel** – Le niveau réel d’Amina est **pré‑débutant** : elle ne possède aucune notion de ce qu’est un agent intelligent ni des outils qui permettent de les créer et de les faire communiquer. Avant de pouvoir aborder des concepts plus complexes (planification, apprentissage, orchestration), il faut d’abord établir les bases.  \n\n4️⃣ **Notion prioritaire à travailler** – **Agents Intelligents**.  \n   - *Pourquoi ?* C’est le concept central qui sous‑tend toutes les autres lacunes : la communication inter‑agents, ainsi que l’utilisation de CrewAI ou LangGraph, ne peuvent être appréhendés sans d’abord comprendre ce qu’est un agent, ses propriétés (perception, action, autonomie, objectif) et son rôle dans un système distribué.  \n   - En maîtrisant cette notion, Amina pourra ensuite relier naturellement la communication entre agents et se familiariser avec les frameworks d’implémentation.  \n\n**Recommandation** – Commencer par une séquence d’apprentissage introductive sur les agents intelligents (définitions, exemples concrets, architecture simple), puis passer rapidement à des exercices de mise en pratique avec un mini‑framework (ex. un agent “Echo” en Python) avant d’aborder les frameworks spécifiques. Cela comblera la lacune fondamentale et préparera le terrain pour les notions suivantes."
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1. **Évaluation du score** – Un résultat de 0 % (0/4) indique que l’étudiante n’a pas validé les questions de base du test. Le niveau déclaré « Débutant » correspond donc à une absence totale de connaissances confirmées sur le module MSA.  \n\n2. **Identification du pattern de lacunes** – Les notions manquantes sont toutes *fondamentales* au sein du module :  \n   - **Agents Intelligents** (concept clé qui sous‑tend tout le cours)  \n   - **Communication Inter‑agents** (mécanisme de coordination)  \n   - **Framework CrewAI** et **Framework LangGraph** (outils d’implémentation indispensables).  \n   Aucun signe de maîtrise d’une notion avancée n’est présent, ce qui montre que les lacunes sont *pré‑requises* plutôt que de niveau intermédiaire ou avancé.  \n\n3. **Conclusion sur le niveau réel** – Malgré le libellé « Débutant », le score de 0 % révèle que l’étudiante se situe en dessous du niveau attendu même pour un débutant : elle ne possède aucune des bases requises pour progresser dans le module.  \n\n4. **Notion prioritaire à travailler** – **Agents Intelligents** est la notion la plus prioritaire, car :  \n   - C’est le concept central qui alimente la compréhension de la communication inter‑agents et de l’usage des frameworks.  \n   - Sans une vision claire de ce qu’est un agent intelligent (perception, action, boucle de décision), les autres notions restent abstraites et difficiles à appliquer.  \n\n**Recommandation** – Commencer par une introduction théorique et pratique aux agents intelligents (définitions, architecture, exemples simples), puis enchaîner rapidement sur la communication inter‑agents avant d’aborder les frameworks spécifiques. Cela permettra de bâtir le socle nécessaire pour le reste du module."
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 4,
+        "total": 4,
+        "pourcentage": 100,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "lacunes": [],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Avancé",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1. **Vérification des données** – Le test adaptatif indique un score parfait (100 %) sur 4 questions, classant Sarah comme *avancée* dans le module MSA. Aucun point n’est perdu, donc aucune lacune n’est signalée.  \n\n2. **Cohérence du niveau** – Un score de 100 % implique que Sarah maîtrise déjà les notions listées (Agents Intelligents, Communication Inter‑agents, Framework CrewAI, Framework LangGraph). Dans le contexte d’un module MSA, ces concepts sont parmi les plus avancés ; il est donc logique que le niveau attribué soit « avancé ».  \n\n3. **Identification du pattern de lacunes** – Puisqu’aucune lacune n’est relevée, le pattern est **« absence de lacunes détectées »**. Cela signifie que le test n’a pas mis en évidence de connaissances fondamentales manquantes ni de points faibles avancés.  \n\n4. **Conclusion et recommandation** – Le niveau réel de Sarah apparaît effectivement très élevé. La notion prioritaire indiquée (« Framework LangGraph ») correspond déjà à une compétence maîtrisée, ce qui suggère que le système a simplement choisi la dernière notion étudiée comme priorité. Pour un étudiant déjà à 100 %, il serait plus pertinent de proposer **un approfondissement ou un projet appliqué** (ex. : implémenter un système multi‑agents complet avec LangGraph et CrewAI) plutôt que de réviser une notion déjà maîtrisée.  \n\n**Synthèse**  \n- **Pattern de lacunes** : aucune (maîtrise complète).  \n- **Niveau réel** : confirmé avancé.  \n- **Notion prioritaire** : bien que le système indique « Framework LangGraph », il serait judicieux de passer à une activité de consolidation (projet, étude de cas) ou d’explorer des concepts encore plus avancés (optimisation de la coordination, apprentissage par renforcement multi‑agents, etc.)."
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1. **Interprétation du score** – Un résultat de 50 % (2 bonnes réponses sur 4) indique que l’étudiant possède des bases solides sur certains concepts (agents intelligents, communication inter‑agents) mais échoue sur les deux questions portant sur les frameworks. Le score moyen place Yassine à la frontière du niveau *intermédiaire* / *début avancé*.\n\n2. **Identification du pattern de lacune** – Les deux points faibles concernent exclusivement les **frameworks** (CrewAI et LangGraph). Ce sont des outils de mise en œuvre avancée qui requièrent la compréhension de l’architecture, de l’API et des bonnes pratiques d’orchestration. Ainsi, la lacune est **technique et appliquée**, plutôt que conceptuelle fondamentale.\n\n3. **Conclusion sur le niveau réel** – Bien que le libellé indique « intermédiaire », la présence d’une lacune ciblée sur des outils avancés montre que Yassine maîtrise les concepts de base mais n’a pas encore intégré les compétences d’ingénierie de systèmes multi‑agents. Son niveau réel se situe donc **intermédiaire‑avancé**, avec besoin de consolidation sur les frameworks.\n\n4. **Notion prioritaire à travailler** – La priorité doit être donnée au **framework CrewAI** (déjà indiqué). CrewAI regroupe la plupart des mécanismes d’orchestration, de gestion d’état et de persistance que Yassine devra maîtriser pour exploiter pleinement LangGraph par la suite. En comblant cette lacune, il acquérra également les bases nécessaires pour aborder LangGraph plus aisément.  "
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 0 % (0/4) indique que l’étudiante n’a pas validé les questions de base du test adaptatif. Le niveau déclaré « Débutant » correspond donc à une maîtrise réellement nulle des concepts évalués.  \n\n2️⃣ **Identification du pattern de lacunes** – Les quatre notions signalées (Agents Intelligents, Communication Inter‑agents, Framework CrewAI, Framework LangGraph) sont toutes des **fondamentaux** du module MSA : elles constituent le socle sur lequel reposent les notions plus avancées (orchestration, planification, apprentissage multi‑agent, etc.). L’absence totale de connaissances sur ces bases montre une lacune **fondamentale** plutôt qu’une difficulté sur des concepts avancés.  \n\n3️⃣ **Conclusion sur le niveau réel** – Au vu du score nul et de la nature des lacunes, le niveau réel d’Amina se situe **en dessous du niveau débutant attendu** : elle ne possède aucune connaissance préalable des concepts clés du module MSA.  \n\n4️⃣ **Notion prioritaire à travailler** – La priorité doit être donnée à **« Agents Intelligents »**. Cette notion est le point d’ancrage du module : elle définit ce qu’est un agent, ses capacités (perception, action, autonomie, objectif) et les principes de conception. Sans cette compréhension, il est impossible de saisir la communication inter‑agents ni d’utiliser les frameworks CrewAI ou LangGraph, qui reposent tous sur le modèle d’agent intelligent.  \n\n**En résumé** : Amina présente des lacunes fondamentales, son niveau réel est inférieur à « débutant », et la première étape de son parcours d’apprentissage doit être l’acquisition solide du concept d’Agents Intelligents."
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1. **Interprétation du score** – Un résultat de 50 % (2 bonnes réponses sur 4) indique que l’étudiant possède des bases correctes mais que la moitié des compétences évaluées restent à consolider. Le niveau déclaré « intermédiaire » est donc probablement surestimé ; le score révèle un niveau **borderline entre débutant et intermédiaire**.\n\n2. **Identification du pattern de lacunes** – Les deux notions manquantes sont les *frameworks* CrewAI et LangGraph, qui sont des outils **avancés** de construction d’agents multi‑agents. Elles requièrent la compréhension de concepts d’orchestration, de gestion d’état et d’interfaçage, bien plus que les notions fondamentales (agents intelligents, communication). Ainsi, la faiblesse n’est pas dans les bases, mais dans la maîtrise d’outils spécialisés.\n\n3. **Conclusion sur le niveau réel** – Le profil montre :  \n   - **Compétences fondamentales solides** (agents, communication).  \n   - **Déficit ciblé sur les frameworks avancés**.  \n   Le niveau réel se situe donc **intermédiaire‑avancé**, avec une lacune technique précise qui empêche de progresser pleinement vers un usage professionnel des frameworks.\n\n4. **Notion prioritaire à travailler** – *Framework CrewAI* a été désigné comme priorité. C’est justifié parce que :  \n   - C’est le premier framework mentionné dans le programme MSA et sert de base pour comprendre les concepts d’orchestration.  \n   - Maîtriser CrewAI facilitera ensuite l’apprentissage de LangGraph (les deux partagent des abstractions similaires).  \n   - Une bonne maîtrise de CrewAI permettra à Yassine de créer, tester et déployer rapidement des agents, comblant ainsi la principale barrière à son avancement.  \n\n**Recommandation** – Concentrer les premières sessions d’apprentissage sur les concepts clés de CrewAI (architecture, composants, flux de travail) avant de passer à LangGraph, tout en consolidant les connaissances déjà acquises sur les agents intelligents et la communication inter‑agents."
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 4,
+        "total": 4,
+        "pourcentage": 100,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "lacunes": [],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Avancé",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1. **Vérification des indicateurs** – Le score de 100 % (4/4) indique que Sarah a répondu correctement à toutes les questions du test adaptatif. Le niveau affiché « Avancé » est cohérent avec ce résultat parfait.  \n\n2. **Inventaire des compétences maîtrisées** – Les quatre notions listées (Agents Intelligents, Communication Inter‑agents, Framework CrewAI, Framework LangGraph) sont toutes des concepts clés du module MSA, couvrant à la fois la théorie des agents et les outils de mise en œuvre. Leur maîtrise confirme une bonne compréhension tant du fondement (agents, communication) que de l’application pratique (CrewAI, LangGraph).  \n\n3. **Détection de lacunes** – Aucun point faible n’est signalé. Le diagnostic ne relève aucune notion non maîtrisée, ce qui correspond au score complet.  \n\n4. **Priorisation de la notion à approfondir** – Malgré l’absence de lacune, le système recommande la notion « Framework LangGraph » comme priorité. Cette recommandation vise probablement à consolider la compétence la plus récente ou la plus stratégique pour les projets futurs, afin de garantir une expertise de niveau expert et préparer d’éventuelles évolutions (intégration de LangGraph dans des architectures plus complexes).  \n\n**Conclusion**  \n- **Pattern de lacunes** : aucune lacune détectée, le profil est complet.  \n- **Niveau réel** : confirmé comme **Avancé** (voire proche du niveau expert).  \n- **Notion prioritaire** : **Framework LangGraph**, afin de transformer la maîtrise actuelle en expertise approfondie et de préparer l’étudiante à des applications avancées ou à la transmission de ce savoir."
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 0 % (0/4) indique que l’étudiante n’a validé aucune des questions du test adaptatif. Le niveau déclaré « Débutant » correspond donc à une absence totale de connaissances opérationnelles sur le module MSA.  \n\n2️⃣ **Identification du pattern de lacunes** – Les quatre notions signalées comme manquantes sont toutes **fondamentales** pour le module :  \n- *Agents Intelligents* (concept de base des systèmes multi‑agents)  \n- *Communication Inter‑agents* (mécanisme essentiel de coordination)  \n- *Framework CrewAI* et *Framework LangGraph* (outils d’implémentation couramment utilisés).  \nIl n’y a donc pas de lacunes « avancées » (ex. : planification multi‑objectif, négociation stratégique) ; le problème est un manque de bases.  \n\n3️⃣ **Conclusion sur le niveau réel** – Au‑delà du libellé « Débutant », le niveau réel d’Amina se situe **au dessous du seuil d’entrée** du module : elle ne possède aucune notion clé et ne peut pas encore appréhender les concepts plus complexes.  \n\n4️⃣ **Notion prioritaire à travailler** – La priorité est **« Agents Intelligents »**.  \n- C’est le pilier conceptuel qui sous‑tend la communication inter‑agents et l’usage des frameworks.  \n- Sans une compréhension claire de ce qu’est un agent intelligent (perception, action, état interne, boucle de décision), il sera très difficile d’assimiler la communication entre agents ou d’utiliser CrewAI/LangGraph de façon efficace.  \n\n**Synthèse**  \n- **Pattern de lacunes** : fondamentales (absence de concepts de base).  \n- **Niveau réel** : très précoce, besoin d’une remise à zéro des bases.  \n- **Prochaine étape** : travailler d’abord la notion « Agents Intelligents », puis enchaîner rapidement sur la communication inter‑agents avant d’aborder les frameworks.  \n\nCette progression garantira une construction solide du raisonnement multi‑agent avant d’introduire les outils d’implémentation."
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 0 % (0/4) indique que l’étudiante n’a pas validé les questions de base du test. Le niveau déclaré « Débutant » correspond donc à une maîtrise réellement nulle des concepts évalués.  \n\n2️⃣ **Identification du pattern de lacunes** – Les quatre notions manquantes sont toutes *fondamentales* au module MSA :  \n- **Agents Intelligents** (concept de base, définition et rôle)  \n- **Communication Inter‑agents** (mécanismes de messagerie, protocoles)  \n- **Framework CrewAI** (premier framework d’orchestration)  \n- **Framework LangGraph** (framework de graphes de flux).  \n\nL’absence de ces bases montre que l’étudiante n’a pas encore construit le socle théorique nécessaire pour aborder des notions plus avancées (planification, apprentissage multi‑agent, etc.).  \n\n3️⃣ **Conclusion sur le niveau réel** – Le niveau réel d’Amina est **inférieur au niveau débutant déclaré** : elle se situe au tout‑début du continuum d’apprentissage du MSA, sans aucune connaissance exploitable des piliers du cours.  \n\n4️⃣ **Notion prioritaire à travailler** – La priorité doit être **« Agents Intelligents »**. C’est le concept central qui sous‑tend la compréhension de la communication inter‑agents et de l’utilisation des frameworks CrewAI et LangGraph. Sans une vision claire de ce qu’est un agent intelligent (perception, action, boucle de décision), les autres notions resteront abstraites et difficiles à assimiler.  \n\n**Recommandation** – Commencer par une leçon introductive très concrète sur les agents intelligents (définitions, exemples simples, diagrammes de boucle de perception‑action) puis proposer des exercices de mise en pratique (création d’un agent minimal en Python) avant de passer à la communication et aux frameworks."
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 50 % (2 bonnes réponses sur 4) montre que Yassine possède les bases du module MSA mais ne les applique pas de façon fiable. Le niveau indiqué « intermédiaire » est donc surestimé : il se situe plutôt à la frontière entre *débutant* et *intermédiaire*.\n\n2️⃣ **Identification du pattern de lacunes** – Les deux notions manquantes sont les *frameworks* : **CrewAI** et **LangGraph**. Ce sont des outils de haut niveau qui requièrent la compréhension de concepts d’orchestration d’agents, de gestion de flux de travail et d’interfaçage avec des modèles de langage. Ainsi, les lacunes sont **avancées** (elles concernent l’intégration et la mise en œuvre de technologies récentes, pas les concepts fondamentaux d’agents ou de communication).\n\n3️⃣ **Priorisation** – Parmi les deux, le diagnostic met en avant **CrewAI** comme notion prioritaire. CrewAI est le framework le plus complet pour structurer des équipes d’agents et gérer leurs interactions ; il sert de socle pour exploiter ensuite LangGraph. Maîtriser CrewAI permettra à Yassine de comprendre l’architecture d’orchestration, de créer des pipelines d’agents et de préparer le terrain pour LangGraph.\n\n4️⃣ **Conclusion sur le niveau réel** – Yassine se situe **au niveau débutant‑intermédiaire** : il maîtrise les concepts fondamentaux (agents intelligents, communication) mais doit encore acquérir les compétences avancées d’orchestration de frameworks. La prochaine étape est de travailler intensivement sur **CrewAI**, puis de consolider avec LangGraph."
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 50 % (2 bonnes réponses sur 4) montre que Yassine possède des bases solides (il maîtrise déjà les agents intelligents et la communication inter‑agents) mais qu’il échoue à mi‑parcours sur les outils de mise en œuvre. Le niveau « intermédiaire » indiqué par le système est donc partiellement surestimé : il reflète la connaissance théorique mais masque une faiblesse pratique.\n\n2️⃣ **Identification du pattern de lacune** – Les deux notions manquantes sont des *frameworks* (CrewAI et LangGraph). Ce sont des compétences **avancées / appliquées** qui requièrent la compréhension de l’architecture, de l’API et de l’intégration dans un pipeline d’agents. La lacune n’est donc pas conceptuelle (pas de problème de logique ou de mathématiques) mais technique : Yassine ne sait pas encore comment concrétiser les agents qu’il connaît déjà.\n\n3️⃣ **Conclusion sur le niveau réel** – Sur le plan théorique, Yassine se situe bien au niveau intermédiaire. Sur le plan pratique, il se situe plutôt à la frontière entre intermédiaire et débutant avancé : il doit encore acquérir les compétences d’implémentation des frameworks les plus courants. Son niveau réel est donc **intermédiaire‑pratique limité**.\n\n4️⃣ **Notion prioritaire à travailler** – Le diagnostic indique « Framework CrewAI » comme priorité. C’est justifié parce que :  \n   - CrewAI est le framework le plus utilisé pour orchestrer plusieurs agents collaboratifs, donc la maîtrise de cet outil débloquera immédiatement la capacité à mettre en pratique les notions déjà maîtrisées (agents intelligents, communication).  \n   - Une fois CrewAI compris, l’apprentissage de LangGraph sera plus aisé, car les deux partagent des concepts d’orchestration et de gestion d’état.  \n\n**En résumé** : Yassine doit d’abord consolider ses compétences d’implémentation avec CrewAI (installation, configuration, création de crew, gestion du flux de messages). Cette étape comblera la lacune technique majeure et lui permettra de progresser rapidement vers la maîtrise de LangGraph et d’autres frameworks."
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 0 % (0/4) indique que l’étudiante n’a pas validé les questions de base du test. Le niveau déclaré « Débutant » correspond donc à une **absence de connaissances préalables** sur le sujet du module MSA (Multi‑Agent Systems).\n\n2️⃣ **Identification du pattern de lacunes** – Les notions manquantes sont toutes **fondamentales** :  \n- *Agents Intelligents* (concept de base des agents autonomes)  \n- *Communication Inter‑agents* (mécanismes de messagerie, protocoles)  \n- *Framework CrewAI* et *Framework LangGraph* (outils d’implémentation).  \nAucune notion avancée (ex. planification multi‑agent, négociation, apprentissage par renforcement) n’est répertoriée, ce qui montre que la carence se situe au niveau des **fondations** du domaine.\n\n3️⃣ **Conclusion sur le niveau réel** – Au regard du score nul et des lacunes listées, le niveau réel d’Amina est **inférieur au niveau débutant attendu** : elle ne possède pas les concepts de base nécessaires pour aborder les frameworks ou la communication entre agents. Elle doit d’abord acquérir les notions théoriques d’agents intelligents avant de passer à la mise en pratique.\n\n4️⃣ **Notion prioritaire à travailler** – La priorité est **« Agents Intelligents »**.  \n*Pourquoi ?*  \n- C’est le concept central qui sous-tend toutes les autres compétences (communication, utilisation de frameworks).  \n- Comprendre ce qu’est un agent, ses propriétés (perception, action, autonomie, objectif) permet de saisir le rôle de la communication inter‑agents et de raisonner sur l’architecture des frameworks CrewAI et LangGraph.  \n- Sans cette base, l’apprentissage des outils pratiques serait décousu et peu efficace.\n\n**Synthèse** : Amina présente des lacunes fondamentales. Le plan d’apprentissage doit commencer par une introduction théorique aux agents intelligents (définitions, types d’agents, cycles de perception‑action), avant de progresser vers la communication inter‑agents et, enfin, l’expérimentation avec CrewAI et LangGraph."
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 0 % (0/4) indique que l’étudiante n’a validé aucune des questions du test adaptatif. Le niveau déclaré « Débutant » correspond donc à une absence totale de connaissances opérationnelles sur le module MSA.  \n\n2️⃣ **Identification du pattern de lacunes** – Les quatre notions signalées comme manquantes sont toutes **fondamentales** pour le module :  \n- *Agents Intelligents* (concept de base des systèmes multi‑agents)  \n- *Communication Inter‑agents* (mécanisme essentiel de coordination)  \n- *Framework CrewAI* et *Framework LangGraph* (outils d’implémentation couramment utilisés).  \nAucune notion avancée (ex. planification multi‑objectif, négociation stratégique) n’est encore apparue, ce qui montre que les lacunes sont à la racine du sujet.  \n\n3️⃣ **Conclusion sur le niveau réel** – Au‑delà du libellé « Débutant », le niveau réel d’Amina est **pré‑requis** : elle doit acquérir les concepts de base avant de pouvoir aborder des aspects plus complexes du MSA.  \n\n4️⃣ **Notion prioritaire à travailler** – La priorité est donnée à **« Agents Intelligents »**. C’est le pilier conceptuel qui sous‑tend la communication inter‑agents et l’utilisation des frameworks ; sans une compréhension claire de ce qu’est un agent intelligent (perception, action, état interne, boucle de décision), les autres notions resteront abstraites et difficiles à appliquer.  \n\n**En résumé** : Amina présente des lacunes fondamentales sur tout le spectre du module MSA. Le premier pas doit être une introduction solide aux agents intelligents, puis on pourra enchaîner sur la communication inter‑agents et, enfin, sur les frameworks pratiques."
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1. **Interprétation du score** – Un résultat de 50 % (2 bonnes réponses sur 4) indique que l’étudiant possède des bases solides sur certains concepts (agents intelligents, communication inter‑agents) mais échoue à appliquer ou comprendre les deux frameworks spécifiques demandés. Le niveau déclaré « intermédiaire » est donc partiellement confirmé : il maîtrise les notions théoriques générales mais montre des lacunes techniques.\n\n2. **Identification du pattern de lacune** – Les deux points faibles concernent des *outils/frameworks* (CrewAI, LangGraph). Ce sont des compétences **avancées / appliquées** qui requièrent la mise en œuvre concrète d’architectures multi‑agents. La difficulté n’est donc pas conceptuelle (fondamentale) mais plutôt liée à la pratique et à la familiarisation avec les API et les patterns de conception propres à chaque framework.\n\n3. **Conclusion sur le niveau réel** – Le profil de Yassine se situe à la frontière entre intermédiaire et avancé : il possède les concepts fondamentaux, mais son niveau réel est limité par l’absence de maîtrise des frameworks modernes. Pour progresser vers un niveau avancé, il doit combler ces lacunes techniques.\n\n4. **Notion prioritaire à travailler** – **Framework CrewAI** a été désigné comme notion prioritaire. C’est logique car :  \n   - CrewAI est souvent le point d’entrée pour orchestrer plusieurs agents et gérer les flux de travail, ce qui constitue une compétence clé pour exploiter les connaissances déjà acquises (agents intelligents, communication).  \n   - Maîtriser CrewAI facilitera ensuite l’apprentissage de LangGraph, qui repose sur des concepts similaires mais avec une orientation plus orientée graphe.  \n\n**En résumé** : Yassine a un socle conceptuel intermédiaire, mais ses lacunes sont de nature appliquée. La priorité immédiate est de travailler le framework CrewAI afin de consolider ses compétences pratiques et de préparer l’acquisition du framework LangGraph."
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant",
+        "raisonnement": "**Analyse du diagnostic (Chain‑of‑Thought)**  \n\n1️⃣ **Interprétation du score** – Un résultat de 0 % (0/4) indique que l’étudiante n’a pas validé les questions de base du test. Le niveau déclaré « Débutant » correspond donc à une absence totale de connaissances préalables sur le sujet du module MSA (Multi‑Agent Systems).  \n\n2️⃣ **Identification du pattern de lacunes** – Les quatre notions signalées comme manquantes sont toutes **fondamentales** pour comprendre et développer des systèmes multi‑agents :  \n- *Agents intelligents* (concept de base, architecture et prise de décision)  \n- *Communication inter‑agents* (protocoles, messages, coordination)  \n- *Framework CrewAI* (outil d’orchestration d’agents)  \n- *Framework LangGraph* (framework de graphes de flux de travail d’agents)  \n\nL’absence de ces notions montre que l’étudiante n’a pas encore acquis les concepts de base nécessaires avant d’aborder des aspects plus avancés (apprentissage, planification, etc.).  \n\n3️⃣ **Conclusion sur le niveau réel** – Le niveau réel d’Amina est **pré‑débutant** : elle ne possède aucune maîtrise des concepts clés du MSA et doit d’abord construire un socle théorique solide.  \n\n4️⃣ **Notion prioritaire à travailler** – La priorité est **« Agents intelligents »**. C’est le point d’entrée du domaine : comprendre ce qu’est un agent, ses composants (perception, raisonnement, action) et les modèles de décision. Sans cette base, la communication inter‑agents et l’utilisation des frameworks ne pourront pas être appréhendées de façon cohérente.  \n\n**En résumé** : Amina doit commencer par étudier les concepts fondamentaux des agents intelligents, puis progresser vers la communication et les frameworks spécifiques. Cette progression garantira une acquisition structurée et évitera les lacunes en cascade."
     }
 ]

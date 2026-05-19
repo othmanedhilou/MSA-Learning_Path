@@ -5,7 +5,7 @@
     "score_final": 0,
     "notion_cible": "Agents Intelligents",
     "prochaine_revision": "2026-05-20",
-    "timestamp": "2026-05-19T12:55:40.893017"
+    "timestamp": "2026-05-19T21:19:14.628001"
   },
   "Yassine": {
     "etudiant": "Yassine",
@@ -13,14 +13,14 @@
     "score_final": 50,
     "notion_cible": "Framework CrewAI",
     "prochaine_revision": "2026-05-20",
-    "timestamp": "2026-05-19T11:12:54.915144"
+    "timestamp": "2026-05-19T21:20:46.081267"
   },
   "Sarah": {
     "etudiant": "Sarah",
     "module": "MSA",
     "score_final": 100,
     "notion_cible": "Framework LangGraph",
-    "prochaine_revision": "2032-11-05",
-    "timestamp": "2026-05-19T11:12:54.503455"
+    "prochaine_revision": "2230-03-29",
+    "timestamp": "2026-05-19T21:16:49.268345"
   }
 }

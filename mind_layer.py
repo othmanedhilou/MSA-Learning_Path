@@ -57,10 +57,32 @@ _try_init_llm()
 
 
 # System prompts pour chaque agent — définissent le rôle et le format attendu
+
+# Few-shot : 2 exemples montrent au LLM exactement le format et le niveau de détail attendus
 PLANIFICATEUR_SYSTEM_PROMPT = """Tu es l'Agent Planificateur d'un Système Multi-Agents pédagogique.
 Analyse le diagnostic d'un étudiant et explique le parcours optimal en Chain-of-Thought.
 Sois concis (4-6 phrases max), raisonne en étapes numérotées, justifie l'ordre par les prérequis.
-Mentionne la durée estimée et le rythme de révision espacée (SM-2)."""
+Mentionne la durée estimée et le rythme de révision espacée (SM-2).
+
+--- Exemples (few-shot) ---
+
+Exemple 1 :
+Étudiant : Amina | Score : 0% | Lacunes : [Agents Intelligents, Communication Inter-agents, CrewAI, LangGraph]
+Étape 1 — Analyse : Score nul → profil débutant complet, toutes les notions sont à apprendre.
+Étape 2 — Prérequis : Agents Intelligents (niveau 1) est le prérequis de tout le reste, on commence là.
+Étape 3 — Parcours : 4 étapes dans l'ordre de complexité, 3h45 estimées sur 4 jours.
+Étape 4 — SM-2 : Intervalles courts (1 jour) pour ancrer les bases avant de passer à la suite.
+Recommandation : Progression strictement linéaire, aucun saut de niveau autorisé.
+
+Exemple 2 :
+Étudiant : Yassine | Score : 50% | Lacunes : [Framework CrewAI, Framework LangGraph]
+Étape 1 — Analyse : Score intermédiaire → les 2 premières notions sont maîtrisées, blocage sur les frameworks.
+Étape 2 — Prérequis : CrewAI (niveau 3) doit précéder LangGraph (niveau 4) — dépendance directe.
+Étape 3 — Parcours : 2 étapes ciblées, 2h30 estimées.
+Étape 4 — SM-2 : Intervalles moyens (3-6 jours) car les bases sont là.
+Recommandation : Partir des acquis pour combler uniquement les lacunes identifiées.
+
+--- Fin des exemples ---"""
 
 DIAGNOSTICIEN_SYSTEM_PROMPT = """Tu es l'Agent Diagnosticien d'un Système Multi-Agents pédagogique.
 Analyse le résultat du test adaptatif en Chain-of-Thought (3-4 étapes max).
@@ -98,8 +120,78 @@ def _call_llm(system_prompt: str, user_prompt: str) -> str:
     return response.content
 
 
-# Raisonnement du Planificateur (Chain-of-Thought sur le parcours construit)
+def react_planificateur(diagnostic: dict, parcours: list) -> str:
+    """Vrai loop ReAct : Reason → Act (appel outil) → Observe → Reason → réponse finale.
+
+    Le LLM peut appeler outil_rag_ressources et outil_sm2_revision pendant son raisonnement.
+    Retourne None si LLM indisponible — l'appelant bascule sur CoT fallback.
+    """
+    if LLM_PROVIDER == "fallback" or _llm_client is None:
+        return None
+
+    try:
+        from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage
+        from tools import outil_rag_ressources, outil_sm2_revision, TOUS_LES_OUTILS
+
+        llm_with_tools = _llm_client.bind_tools(TOUS_LES_OUTILS)
+        lacunes        = ", ".join(diagnostic.get("lacunes", [])) or "aucune"
+        notion_cible   = diagnostic.get("notion_cible", "?")
+
+        system_react = PLANIFICATEUR_SYSTEM_PROMPT + """
+
+Tu as accès aux outils suivants — utilise-les avant de raisonner :
+- outil_rag_ressources(notion, n_resultats) : cherche les ressources pédagogiques disponibles
+- outil_sm2_revision(etudiant, notion, qualite) : calcule la date de prochaine révision SM-2
+
+Commence par appeler ces outils, puis construis ton raisonnement Chain-of-Thought."""
+
+        messages = [
+            SystemMessage(content=system_react),
+            HumanMessage(content=(
+                f"Étudiant : {diagnostic.get('etudiant')} | Module : {diagnostic.get('module')}\n"
+                f"Score : {diagnostic.get('pourcentage')}%\n"
+                f"Lacunes : {lacunes} | Notion prioritaire : {notion_cible}\n\n"
+                f"Utilise tes outils puis explique le parcours optimal en Chain-of-Thought."
+            ))
+        ]
+
+        # Boucle ReAct — max 4 itérations (Reason → Act → Observe → Reason...)
+        for _ in range(4):
+            response = llm_with_tools.invoke(messages)
+
+            if not getattr(response, 'tool_calls', None):
+                return response.content  # réponse finale sans appel d'outil
+
+            # Le LLM a appelé un ou plusieurs outils → exécution
+            messages.append(response)
+            for tc in response.tool_calls:
+                name, args, tid = tc["name"], tc["args"], tc["id"]
+                if name == "outil_rag_ressources":
+                    res = outil_rag_ressources.invoke(args)
+                    obs = f"{len(res)} ressource(s) — " + " | ".join(
+                        r.get("contenu", "")[:80] for r in res[:2])
+                elif name == "outil_sm2_revision":
+                    res = outil_sm2_revision.invoke(args)
+                    obs = (f"Révision : {res.get('prochaine_revision')} "
+                           f"(dans {res.get('intervalle_jours')} j, EF={res.get('facteur_facilite')})")
+                else:
+                    obs = "Outil exécuté."
+                messages.append(ToolMessage(content=obs, tool_call_id=tid))
+
+        return response.content
+
+    except Exception:
+        return None  # appelant utilise le fallback CoT
+
+
+# Raisonnement du Planificateur — essaie ReAct d'abord, puis CoT, puis fallback
 def reason_planificateur(diagnostic: dict, parcours: list) -> str:
+    # 1. Tenter le vrai loop ReAct (Reason → Act → Observe → Answer)
+    react_result = react_planificateur(diagnostic, parcours)
+    if react_result:
+        return react_result
+
+    # 2. CoT simple si ReAct échoue (ex: modèle ne supporte pas tool_calls)
     if LLM_PROVIDER != "fallback" and _llm_client is not None:
         try:
             lacunes  = ", ".join(diagnostic.get("lacunes", [])) or "aucune"

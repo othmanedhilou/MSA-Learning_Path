@@ -1,3 +1,4 @@
+# Agent Diagnosticien — test adaptatif : bonne réponse → difficulté monte, mauvaise → redescend
 import json
 import os
 import random
