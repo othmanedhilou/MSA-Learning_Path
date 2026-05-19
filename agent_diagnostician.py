@@ -150,28 +150,14 @@ class AgentDiagnostician:
             json.dump(rapports, f, ensure_ascii=False, indent=4)
 
     def get_lacune_pour_app(self, module, nom_etudiant="Etudiant"):
-        """
-        Version simplifiée pour l'intégration avec app.py de DODO.
-        Retourne directement la notion cible (lacune principale).
-        """
+        """Retourne directement la notion cible (lacune principale) pour intégration UI."""
         rapport = self.run_diagnostic(module, nom_etudiant)
         if rapport:
             return rapport['notion_cible']
         return None
 
-    # ─── Tâche O5 — Mode Streamlit (sans input()) ─────────────
     def run_diagnostic_for_profile(self, module, profile):
-        """
-        Diagnostic basé sur un profil pré-défini (Amina, Yassine, Sarah).
-        Pas d'interaction — utilise profile['historique'] et score_initial.
-
-        Args:
-            module: nom du module à diagnostiquer
-            profile: dict du profil (data/profils_demo.json)
-
-        Returns:
-            Rapport au même format que run_diagnostic() (mais sans input()).
-        """
+        """Diagnostic non-interactif basé sur profile['historique'] + score_initial — pour Streamlit."""
         notions = self._get_notions(module)
         if not notions:
             return None
@@ -235,17 +221,7 @@ class AgentDiagnostician:
         return rapport
 
     def run_diagnostic_with_answers(self, module, nom_etudiant, answers):
-        """
-        Variante state-based pour Streamlit (questionnaire interactif).
-
-        Args:
-            module: nom du module
-            nom_etudiant: nom de l'étudiant
-            answers: dict {notion_label: index_reponse_choisie}
-
-        Returns:
-            Rapport au même format que run_diagnostic().
-        """
+        """Diagnostic adaptatif à partir des réponses collectées dans l'UI Streamlit (quiz)."""
         notions = self._get_notions(module)
         if not notions:
             return None
@@ -292,13 +268,13 @@ class AgentDiagnostician:
             "notions_maitrisees": notions_maitrisees,
             "lacunes": lacunes,
             "notion_cible": notion_cible,
-            "niveau_global": self._evaluer_niveau(pourcentage)
+            "niveau_global": self._evaluer_niveau(pourcentage),
         }
+        rapport["raisonnement"] = reason_diagnosticien(rapport)
         self._sauver_rapport(rapport)
         return rapport
 
 
-# ─── TEST RAPIDE ───────────────────────────────────────────
 if __name__ == '__main__':
     agent = AgentDiagnostician()
     modules = ["MSA", "Data Mining", "Deep Learning", "Data Warehouse", "Big Data"]

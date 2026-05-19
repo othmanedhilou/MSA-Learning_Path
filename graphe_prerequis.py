@@ -1,11 +1,14 @@
+# Visualisation du graphe de prérequis par module (matplotlib + networkx)
 import json
+import os
 import networkx as nx
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
-# Couleurs par module
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 COULEURS = {
     "MSA":            "#4b6cb7",
     "Data Mining":    "#e74c3c",
@@ -15,7 +18,7 @@ COULEURS = {
 }
 
 def build_graph():
-    with open('data/prerequis.json', 'r', encoding='utf-8') as f:
+    with open(os.path.join(BASE_DIR, 'data', 'prerequis.json'), 'r', encoding='utf-8') as f:
         data = json.load(f)
 
     G = nx.DiGraph()
@@ -102,9 +105,9 @@ def visualiser_graphe():
                fontsize=10, frameon=True, bbox_to_anchor=(0.5, -0.05))
 
     plt.tight_layout()
-    plt.savefig('data/graphe_prerequis.png', dpi=150,
-                bbox_inches='tight', facecolor='#f8f9fa')
-    print("✅ Graphe sauvegardé : data/graphe_prerequis.png")
+    output = os.path.join(BASE_DIR, 'data', 'graphe_prerequis.png')
+    plt.savefig(output, dpi=150, bbox_inches='tight', facecolor='#f8f9fa')
+    print(f"Graphe sauvegardé : {output}")
 
 if __name__ == '__main__':
     visualiser_graphe()

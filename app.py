@@ -118,7 +118,8 @@ with st.sidebar:
         total = len(st.session_state.quiz_notions)
         current = st.session_state.quiz_index
         if total > 0:
-            st.progress(current / total, text=f"Question {current}/{total}")
+            displayed = min(current + 1, total)
+            st.progress(current / total, text=f"Question {displayed}/{total}")
     else:
         st.info("⬅️ Choisissez un profil pour commencer")
 

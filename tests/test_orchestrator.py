@@ -18,9 +18,7 @@ from orchestrator import (
 from a2a_protocol import create_a2a_msg, REQUEST, INFORM
 
 
-# ═══════════════════════════════════════════════════════════════
-# TESTS DE LA CONDITIONAL EDGE (cœur LangGraph)
-# ═══════════════════════════════════════════════════════════════
+# Tests de la conditional edge LangGraph
 
 class TestConditionalEdge:
 
@@ -50,9 +48,7 @@ class TestConditionalEdge:
         assert route_after_diagnostic(state) == "planificateur"
 
 
-# ═══════════════════════════════════════════════════════════════
-# TESTS DU PROTOCOLE A2A
-# ═══════════════════════════════════════════════════════════════
+# Tests du protocole A2A
 
 class TestA2AProtocol:
 
@@ -75,9 +71,7 @@ class TestA2AProtocol:
         assert msg["conversation_id"] == "custom-123"
 
 
-# ═══════════════════════════════════════════════════════════════
-# TESTS D'INTÉGRATION — sessions complètes
-# ═══════════════════════════════════════════════════════════════
+# Tests d'intégration — sessions complètes
 
 @pytest.fixture
 def profils():
@@ -135,9 +129,7 @@ class TestSessionsIntegration:
         assert os.path.exists(profils_path)
 
 
-# ═══════════════════════════════════════════════════════════════
-# TESTS DES NODES INDIVIDUELS
-# ═══════════════════════════════════════════════════════════════
+# Tests des nodes individuels
 
 class TestNodesIsolation:
 
