@@ -1,0 +1,542 @@
+[
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 3,
+        "total": 4,
+        "pourcentage": 75,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI"
+        ],
+        "lacunes": [
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 4,
+        "total": 4,
+        "pourcentage": 100,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "lacunes": [],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Avancé"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 4,
+        "total": 4,
+        "pourcentage": 100,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "lacunes": [],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Avancé"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 4,
+        "total": 4,
+        "pourcentage": 100,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "lacunes": [],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Avancé"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 4,
+        "total": 4,
+        "pourcentage": 100,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "lacunes": [],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Avancé"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 4,
+        "total": 4,
+        "pourcentage": 100,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "lacunes": [],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Avancé"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 4,
+        "total": 4,
+        "pourcentage": 100,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "lacunes": [],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Avancé"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Sarah",
+        "module": "MSA",
+        "score": 4,
+        "total": 4,
+        "pourcentage": 100,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "lacunes": [],
+        "notion_cible": "Framework LangGraph",
+        "niveau_global": "Avancé"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Yassine",
+        "module": "MSA",
+        "score": 2,
+        "total": 4,
+        "pourcentage": 50,
+        "notions_maitrisees": [
+            "Agents Intelligents",
+            "Communication Inter-agents"
+        ],
+        "lacunes": [
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Framework CrewAI",
+        "niveau_global": "Intermédiaire"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    }
+]

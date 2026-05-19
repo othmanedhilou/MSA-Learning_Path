@@ -157,6 +157,143 @@ class AgentDiagnostician:
             return rapport['notion_cible']
         return None
 
+    # ─── Tâche O5 — Mode Streamlit (sans input()) ─────────────
+    def run_diagnostic_for_profile(self, module, profile):
+        """
+        Diagnostic basé sur un profil pré-défini (Amina, Yassine, Sarah).
+        Pas d'interaction — utilise profile['historique'] et score_initial.
+
+        Args:
+            module: nom du module à diagnostiquer
+            profile: dict du profil (data/profils_demo.json)
+
+        Returns:
+            Rapport au même format que run_diagnostic() (mais sans input()).
+        """
+        notions = self._get_notions(module)
+        if not notions:
+            return None
+
+        # Construire les ensembles à partir de l'historique du profil
+        historique = {h['notion']: h['maitrise'] for h in profile.get('historique', [])}
+        score_initial = profile.get('score_initial', 50)
+
+        # Calculer mastery par notion (du module courant)
+        notions_maitrisees = []
+        lacunes = []
+        resultats = {}
+
+        for notion_info in notions:
+            label = notion_info['label']
+            # Si dans l'historique, prendre la valeur explicite
+            if label in historique:
+                maitrise = historique[label]
+            else:
+                # Sinon, déduire du score initial + niveau
+                # Avancé (>= 80) : maîtrise tout sauf le niveau 4 max
+                # Intermédiaire (50-79) : maîtrise niveau 1-2, échec sur 3-4
+                # Débutant (< 50) : échec partout sauf peut-être niveau 1
+                niveau = notion_info.get('niveau', 1)
+                if score_initial >= 80:
+                    # Avance : maitrise tout (l'historique peut surcharger)
+                    maitrise = True
+                elif score_initial >= 50:
+                    maitrise = (niveau <= 2)
+                else:
+                    maitrise = False
+
+            resultats[label] = 1 if maitrise else 0
+            if maitrise:
+                notions_maitrisees.append(label)
+            else:
+                lacunes.append(label)
+
+        total = len(resultats)
+        score = sum(resultats.values())
+        pourcentage = round((score / total) * 100) if total > 0 else 0
+
+        # Notion cible = première lacune
+        notion_cible = (lacunes[0] if lacunes
+                        else (notions_maitrisees[-1] if notions_maitrisees
+                              else notions[0]['label']))
+
+        rapport = {
+            "etudiant": profile.get('nom', 'Etudiant'),
+            "module": module,
+            "score": score,
+            "total": total,
+            "pourcentage": pourcentage,
+            "notions_maitrisees": notions_maitrisees,
+            "lacunes": lacunes,
+            "notion_cible": notion_cible,
+            "niveau_global": self._evaluer_niveau(pourcentage)
+        }
+        self._sauver_rapport(rapport)
+        return rapport
+
+    def run_diagnostic_with_answers(self, module, nom_etudiant, answers):
+        """
+        Variante state-based pour Streamlit (questionnaire interactif).
+
+        Args:
+            module: nom du module
+            nom_etudiant: nom de l'étudiant
+            answers: dict {notion_label: index_reponse_choisie}
+
+        Returns:
+            Rapport au même format que run_diagnostic().
+        """
+        notions = self._get_notions(module)
+        if not notions:
+            return None
+
+        resultats = {}
+        lacunes = []
+        notions_maitrisees = []
+        niveau_actuel = "facile"
+        niveaux = ["facile", "moyen", "difficile"]
+
+        for notion_info in notions:
+            notion = notion_info['label']
+            q = self._get_questions(module, notion, niveau_actuel) \
+                or self._get_questions(module, notion, "facile")
+            if not q:
+                continue
+
+            reponse = answers.get(notion, -1)
+            correct = (reponse == q['reponse'])
+            resultats[notion] = 1 if correct else 0
+
+            if correct:
+                notions_maitrisees.append(notion)
+                idx = niveaux.index(niveau_actuel)
+                if idx < len(niveaux) - 1:
+                    niveau_actuel = niveaux[idx + 1]
+            else:
+                lacunes.append(notion)
+                niveau_actuel = "facile"
+
+        total = len(resultats)
+        score = sum(resultats.values())
+        pourcentage = round((score / total) * 100) if total > 0 else 0
+        notion_cible = (lacunes[0] if lacunes
+                        else (notions_maitrisees[-1] if notions_maitrisees
+                              else notions[0]['label']))
+
+        rapport = {
+            "etudiant": nom_etudiant,
+            "module": module,
+            "score": score,
+            "total": total,
+            "pourcentage": pourcentage,
+            "notions_maitrisees": notions_maitrisees,
+            "lacunes": lacunes,
+            "notion_cible": notion_cible,
+            "niveau_global": self._evaluer_niveau(pourcentage)
+        }
+        self._sauver_rapport(rapport)
+        return rapport
+
 
 # ─── TEST RAPIDE ───────────────────────────────────────────
 if __name__ == '__main__':

@@ -48,5 +48,155 @@
         "etudiant": "San",
         "notion": "K-Means Clustering",
         "score": 3
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 3
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Sarah",
+        "notion": "Framework LangGraph",
+        "score": 5
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
+    },
+    {
+        "etudiant": "Amina",
+        "notion": "Agents Intelligents",
+        "score": 0
+    },
+    {
+        "etudiant": "Yassine",
+        "notion": "Framework CrewAI",
+        "score": 2
     }
 ]

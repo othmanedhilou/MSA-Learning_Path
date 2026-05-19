@@ -28,5 +28,23 @@
         "repetitions": 1,
         "facilite": 2.5,
         "prochaine_revision": "2026-05-10"
+    },
+    "Amina::Agents Intelligents": {
+        "intervalle": 1,
+        "repetitions": 0,
+        "facilite": 1.3,
+        "prochaine_revision": "2026-05-20"
+    },
+    "Yassine::Framework CrewAI": {
+        "intervalle": 1,
+        "repetitions": 0,
+        "facilite": 1.3,
+        "prochaine_revision": "2026-05-20"
+    },
+    "Sarah::Framework LangGraph": {
+        "intervalle": 2362,
+        "repetitions": 8,
+        "facilite": 3.06,
+        "prochaine_revision": "2032-11-05"
     }
 }
