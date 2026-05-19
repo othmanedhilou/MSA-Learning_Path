@@ -1,19 +1,5 @@
-"""
-Streamlit App — Learning Path Architect
-═══════════════════════════════════════════════════════════════
-
-Interface complète du SMA Agentic AI.
-Intègre :
-  • L'orchestrateur LangGraph (orchestrator.py)
-  • Le moteur RAG (rag_engine.py — Dodo D1)
-  • Le protocole A2A FIPA-ACL (a2a_protocol.py)
-  • Les 3 profils de démo (data/profils_demo.json — Dodo D4)
-
-Phases :
-  1. ACCUEIL    — choix du profil de démo
-  2. DIAGNOSTIC — l'orchestrateur tourne (avec spinner)
-  3. RESULTATS  — diagnostic, parcours, ressources RAG, timeline A2A
-"""
+# Interface Streamlit — Learning Path Architect
+# 4 phases : ACCUEIL → QUIZ (optionnel) → DIAGNOSTIC → RESULTATS
 import streamlit as st
 import json
 import os
@@ -406,9 +392,7 @@ elif st.session_state.phase == "QUIZ":
         st.rerun()
 
 
-# ══════════════════════════════════════════════════════════════
 # PHASE 3 : DIAGNOSTIC (orchestration en cours)
-# ══════════════════════════════════════════════════════════════
 elif st.session_state.phase == "DIAGNOSTIC":
     p = st.session_state.selected_profile
     module = st.session_state.selected_module
@@ -419,29 +403,38 @@ elif st.session_state.phase == "DIAGNOSTIC":
     progress_bar = st.progress(0, text="Démarrage de l'orchestrateur LangGraph...")
 
     with st.spinner("🤖 Les agents collaborent..."):
-        progress_bar.progress(20, text="🩺 Diagnosticien — test adaptatif")
-        time.sleep(0.4)
-        progress_bar.progress(40, text="🗺️ Planificateur — construction du parcours (CoT)")
-        time.sleep(0.4)
-        progress_bar.progress(60, text="📚 Pédagogue — recherche RAG")
-        time.sleep(0.4)
-        progress_bar.progress(80, text="🔁 Coach — calcul SM-2")
-        time.sleep(0.4)
+        progress_bar.progress(10, text="🩺 Diagnosticien — évaluation du niveau...")
+        time.sleep(0.3)
 
-        # APPEL RÉEL DE L'ORCHESTRATEUR
+        # APPEL RÉEL DE L'ORCHESTRATEUR — le graphe LangGraph décide du chemin
         result = run_session(p['nom'], module, p)
         st.session_state.session_result = result
 
-        progress_bar.progress(100, text="✅ Session terminée")
+        score = result.get('diagnostic', {}).get('pourcentage', 0)
+
+        if score >= 80:
+            # Chemin court : Diagnosticien → Coach → Tracker
+            progress_bar.progress(60, text="🎯 Score ≥ 80% — Conditional Edge activée → Coach direct")
+            time.sleep(0.3)
+            progress_bar.progress(85, text="🔁 Coach — calcul SM-2")
+            time.sleep(0.2)
+        else:
+            # Chemin complet : Diagnosticien → Planificateur → Pédagogue → Coach → Tracker
+            progress_bar.progress(35, text="🗺️ Planificateur — construction du parcours (CoT)")
+            time.sleep(0.3)
+            progress_bar.progress(60, text="📚 Pédagogue — recherche RAG vectorielle")
+            time.sleep(0.3)
+            progress_bar.progress(80, text="🔁 Coach — calcul SM-2")
+            time.sleep(0.2)
+
+        progress_bar.progress(100, text="✅ Session terminée — Tracker a sauvegardé le profil")
         time.sleep(0.3)
 
     st.session_state.phase = "RESULTATS"
     st.rerun()
 
 
-# ══════════════════════════════════════════════════════════════
-# PHASE 3 : RÉSULTATS
-# ══════════════════════════════════════════════════════════════
+# PHASE 4 : RÉSULTATS
 elif st.session_state.phase == "RESULTATS":
     result = st.session_state.session_result
     p = st.session_state.selected_profile
