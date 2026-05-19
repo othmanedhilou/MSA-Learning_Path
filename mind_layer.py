@@ -19,6 +19,10 @@ Cette double stratégie est conforme aux 6 règles MCP du cours :
 import os
 from typing import Optional, Literal
 
+# Charger les variables d'environnement depuis .env
+from dotenv import load_dotenv
+load_dotenv()
+
 # ──────────────────────────────────────────────────────────────
 # Détection automatique du provider LLM disponible
 # ──────────────────────────────────────────────────────────────

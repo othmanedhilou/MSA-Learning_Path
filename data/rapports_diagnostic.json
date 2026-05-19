@@ -538,5 +538,37 @@
         ],
         "notion_cible": "Agents Intelligents",
         "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
+    },
+    {
+        "etudiant": "Amina",
+        "module": "MSA",
+        "score": 0,
+        "total": 4,
+        "pourcentage": 0,
+        "notions_maitrisees": [],
+        "lacunes": [
+            "Agents Intelligents",
+            "Communication Inter-agents",
+            "Framework CrewAI",
+            "Framework LangGraph"
+        ],
+        "notion_cible": "Agents Intelligents",
+        "niveau_global": "Débutant"
     }
 ]
